@@ -9,6 +9,19 @@ readme = "README.md"
 python = "^3.10"
 
 
+[[tool.poetry.source]]
+name = "url"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = false
+secondary = false
+
+
+[[tool.poetry.source]]
+name = "secondary"
+url = "https://pypi.mirrors.ustc.edu.cn/simple/"
+default = false
+secondary = true
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
