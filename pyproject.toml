@@ -6,7 +6,12 @@ authors = ["DMC <lzxder@outlook.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
+dynamicadaptor = "^0.1.0"
+loguru = "^0.6.0"
+pillow = "^9.4.0"
+qrcode = "^7.3.1"
+httpx = "^0.23.2"
 
 
 [[tool.poetry.source]]
@@ -21,6 +26,10 @@ name = "secondary"
 url = "https://pypi.mirrors.ustc.edu.cn/simple/"
 default = false
 secondary = true
+
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.1"
 
 [build-system]
 requires = ["poetry-core"]
