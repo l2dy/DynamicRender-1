@@ -1,10 +1,11 @@
 from dynamicadaptor.Repost import Forward
 from DynConfig import DynColor, DynFontPath, DynSize
-from Core import Image
+from Core import Image,merge_pictures,asyncio
 from DynHeader import DynForwardHeaderRender
 from DynText import DynTextRender
 from DynMajor import DynMajorRender
 from DynAdditional import DynAdditionalRender
+
 
 class DyForwardRender():
     def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize):
@@ -36,5 +37,7 @@ class DyForwardRender():
         if message.additional is not None:
             additional_task =  DynAdditionalRender(self.static_path,self.dyn_color,self.dyn_font,self.dyn_size)
             tasks.append(additional_task.run(message.additional,"F"))
+        result = await asyncio.gather(*tasks)
+        return await merge_pictures(result)
 
 
