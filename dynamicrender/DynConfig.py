@@ -51,8 +51,8 @@ class ConfigInit:
             If the value is None, the font in the cache directory is used by default, by default None
         """
         self.data_path: str = data_path
-        self.static_path: str = None
         self.text_font_path: Union[str, dict, None] = font_path
+        self.static_path: str = None
         self.dyn_color: Optional[DynColor] = None
         self.dyn_font: Optional[DynFontPath] = None
         self.dy_size: Optional[DynSize] = None
@@ -94,7 +94,7 @@ class ConfigInit:
             else:
                 self.set_font_and_static_path()
 
-    def set_user_font(self):
+    def set_user_font(self) -> None:
 
         if self.text_font_path is not None:
             if isinstance(self.text_font_path, str):
@@ -110,7 +110,7 @@ class ConfigInit:
             else:
                 logger.warning("传入错误的字体路径信息格式，将使用默认字体")
 
-    def set_font_and_static_path(self):
+    def set_font_and_static_path(self) -> None:
         # 确定程序的运行目录的路径
         program_running_path = getcwd()
         # 当前文件所在的目录的路径
@@ -135,7 +135,7 @@ class ConfigInit:
         # 设置静态目录所在的路径
         self.static_path = static_path
 
-    def set_color(self, kargs: Optional[dict] = None):
+    def set_color(self, kargs: Optional[dict] = None) -> None:
         if not kargs:
             self.dyn_color = DynColor(**{
                 "dyn_blue": "#00a1d6",
@@ -148,7 +148,7 @@ class ConfigInit:
         else:
             self.dyn_color = DynColor(**kargs)
 
-    def set_size(self, kargs: Optional[dict] = None):
+    def set_size(self, kargs: Optional[dict] = None) -> None:
         if not kargs:
             self.dy_size = DynSize(**{
                 "uname": 45,
