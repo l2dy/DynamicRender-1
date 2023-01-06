@@ -7,18 +7,18 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-dynamicadaptor = "^0.1.0"
 loguru = "^0.6.0"
 pillow = "^9.4.0"
 qrcode = "^7.3.1"
 httpx = "^0.23.2"
 numpy = "^1.24.1"
+dynamicadaptor = "0.1.6"
 
 
 [[tool.poetry.source]]
 name = "url"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
-default = true
+url = "https://pypi.org/simple/"
+default = false
 secondary = false
 
 
@@ -27,7 +27,6 @@ name = "secondary"
 url = "https://pypi.mirrors.ustc.edu.cn/simple/"
 default = false
 secondary = true
-
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.1"

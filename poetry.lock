@@ -23,7 +23,7 @@ trio = ["trio (>=0.16,<0.22)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -44,7 +44,7 @@ tomli = {version = "*", markers = "python_version < \"3.11\""}
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -61,7 +61,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -78,27 +78,28 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
 name = "dynamicadaptor"
-version = "0.1.0"
+version = "0.1.6"
 description = ""
 category = "main"
 optional = false
-python-versions = ">=3.8,<4.0"
+python-versions = ">=3.8.0,<4.0.0"
 files = [
-    {file = "dynamicadaptor-0.1.0-py3-none-any.whl", hash = "sha256:e0a4334fd5383901ac50d49265e6edf9981ed439f519ae02029e2ecacce61633"},
-    {file = "dynamicadaptor-0.1.0.tar.gz", hash = "sha256:d85864dab2875a557e07b69df6b4e4dbff160cdf407201a983874b86e8578fac"},
+    {file = "dynamicadaptor-0.1.6-py3-none-any.whl", hash = "sha256:4c3eda915194a85dea5c1ee1c7fd35951ed1d2edccba8f86e21750467561cbb2"},
+    {file = "dynamicadaptor-0.1.6.tar.gz", hash = "sha256:80d94b32f758e24e54093aa37fac00c0d74212ef63774ad3ba581e32d4572764"},
 ]
 
 [package.dependencies]
+loguru = ">=0.6.0,<0.7.0"
 pydantic = ">=1.10.4,<2.0.0"
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -115,7 +116,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -142,7 +143,7 @@ socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -171,7 +172,7 @@ socks = ["socksio (>=1.0.0,<2.0.0)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -188,7 +189,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -212,7 +213,7 @@ dev = ["Sphinx (>=4.1.1)", "black (>=19.10b0)", "colorama (>=0.3.4)", "docutils 
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -255,7 +256,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -337,7 +338,7 @@ tests = ["check-manifest", "coverage", "defusedxml", "markdown2", "olefile", "pa
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -354,7 +355,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -412,7 +413,7 @@ email = ["email-validator (>=1.0.3)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -438,7 +439,7 @@ test = ["pytest", "pytest-cov"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -461,7 +462,7 @@ idna2008 = ["idna"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -478,7 +479,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -495,7 +496,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -512,7 +513,7 @@ files = [
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [[package]]
@@ -532,10 +533,10 @@ dev = ["black (>=19.3b0)", "pytest (>=4.6.2)"]
 
 [package.source]
 type = "legacy"
-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+url = "https://pypi.org/simple"
 reference = "url"
 
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "1ce2136dcdf742d8c204c1abb04c476f6e0279b1a5718a7bdc6932e56d7515c9"
+content-hash = "cbd4be78b8a9279e1434f0b0a1c11a31272c6d493c2a1125af1c8f9845209e25"

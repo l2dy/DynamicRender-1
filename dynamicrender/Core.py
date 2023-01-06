@@ -9,6 +9,7 @@ from .DynForward import DyForwardRender
 from .DynAdditional import DynAdditionalRender
 from .Tools import merge_pictures
 
+
 class DyRender(ConfigInit):
     def __init__(self, data_path: Optional[str] = None, font_path: Union[None, str, dict] = None):
         super().__init__(data_path, font_path)
