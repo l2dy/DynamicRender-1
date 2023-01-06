@@ -1,0 +1,54 @@
+name : Release
+
+on:
+  push:
+    tags:        
+      - "v*"
+
+
+jobs:
+  build:
+    name: set env
+    runs-on: ubuntu-latest
+    steps:
+    - name : CheckOut
+      uses : actions/checkout@v2
+    - name : set_up_python3.8
+      uses : actions/setup-python@v4
+      with : 
+        python-version : 3.8
+        architecture: "x64"
+    - name: install poetry
+      run: pipx install poetry
+      shell: bash
+
+    - name : InstallDependance
+      run: poetry install
+      shell: bash
+
+    - name : BuildDist
+      run : poetry build
+      shell: bash 
+
+    - name: upload artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        tag_name: ${{steps.get_version.outputs.VERSION }}
+        release_name: ${{steps.get_version.outputs.VERSION }}
+        name: build_result
+        path: dist/*
+
+    - name: Download a Build Artifact
+      uses: actions/download-artifact@v3.0.1
+      with:
+        name: build_result
+
+    - name : Realease whl
+      uses : ncipollo/release-action@v1
+      with :
+        artifacts: "*/*.whl,*/*.zip,*/*.tar.gz"
+      
+
+
+
+  
