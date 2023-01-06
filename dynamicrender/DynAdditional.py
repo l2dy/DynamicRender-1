@@ -1,5 +1,5 @@
-from DynConfig import DynColor, DynFontPath, DynSize
-from Core import Image,Optional
+from .DynConfig import DynColor, DynFontPath, DynSize
+from .Core import Image,Optional
 from dynamicadaptor.AddonCard import Additional
 
 

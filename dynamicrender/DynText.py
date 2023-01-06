@@ -1,6 +1,7 @@
-from DynConfig import DynColor, DynFontPath, DynSize
-from Core import Image,Optional
+from .DynConfig import DynColor, DynFontPath, DynSize
+from .Core import Image, Optional
 from dynamicadaptor.Content import Text
+
 
 class DynTextRender:
     def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
@@ -18,12 +19,11 @@ class DynTextRender:
             size information in the configuration
         """
         self.static_path = static_path
-        self.dyn_color =dyn_color
+        self.dyn_color = dyn_color
         self.dyn_font_path = dyn_font_path
         self.dyn_size = dyn_size
-    
 
-    async def run(dyn_text:Text,type:Optional[str]=None) -> Optional[Image.Image]:
+    async def run(dyn_text: Text, type: Optional[str] = None) -> Optional[Image.Image]:
         """Render the text of the dynamic into image
 
         Parameters
