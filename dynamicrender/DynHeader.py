@@ -1,5 +1,5 @@
-from DynConfig import DynColor, DynFontPath, DynSize
-from Core import Image
+from .DynConfig import DynColor, DynFontPath, DynSize
+from .Core import Image
 from dynamicadaptor.Header import Head
 
 
