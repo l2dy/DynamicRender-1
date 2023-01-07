@@ -46,7 +46,6 @@ class DynHeaderRender:
         Optional[Image.Image]
             Rendered image
         """
-        start = time.perf_counter()
         self.cache_path = path.join(self.static_path, "Cache")
         self.src_path = path.join(self.static_path, "Src")
         try:
@@ -58,7 +57,7 @@ class DynHeaderRender:
 
             #The gather function is executed out of order. 
             # To prevent the pendent and vip images from being under the face image, 
-            # draw_pendant() and draw_vip need to be executed separately
+            # draw_pendant and draw_vip need to be executed separately
 
             await asyncio.gather(*[
                 self.draw_name(),
@@ -67,8 +66,6 @@ class DynHeaderRender:
             ])
             await self.draw_pendant()
             await self.draw_vip()
-            print(time.perf_counter()-start)
-            self.backgroud_img.show()
         except Exception as e:
             logger.exception(e)
             return None
