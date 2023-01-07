@@ -24,13 +24,13 @@ class DynAdditionalRender:
         self.dyn_size: DynSize = dyn_size
     
 
-    async def run(dyn_additional:Additional,type:Optional[str]=None) ->Optional[Image.Image]:
-        """Render the additional of the dynamic into image
+    async def run(self,dyn_additional:Additional,type:Optional[str]=None) ->Optional[Image.Image]:
+        """Render  additional of the dynamic into image
 
         Parameters
         ----------
         dyn_additional : Additional
-            The additional of the dynamic
+            additional of the dynamic
         type : Optional[str]
             F or None
         Returns

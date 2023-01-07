@@ -1,5 +1,5 @@
 from .DynConfig import DynColor, DynFontPath, DynSize
-from .Core import Image,Optional
+from .Core import Image, Optional
 from dynamicadaptor.Majors import Major
 
 
@@ -18,20 +18,19 @@ class DynMajorRender:
         dyn_size : DynSize
             size information in the configuration
         """
-        self.static_path:str = static_path
-        self.dyn_color: DynColor =dyn_color
+        self.static_path: str = static_path
+        self.dyn_color: DynColor = dyn_color
         self.dyn_font_path: DynFontPath = dyn_font_path
         self.dyn_size: DynSize = dyn_size
-    
 
-    async def run(dyn_maojor:Major,type:Optional[str]=None) ->Optional[Image.Image]:
+    async def run(self, dyn_maojor: Major, dyn_type: Optional[str] = None) -> Optional[Image.Image]:
         """Render the major of the dynamic into image
 
         Parameters
         ----------
         dyn_text : Head
             The major of the dynamic
-        type : Optional[str]
+        dyn_type : Optional[str]
             F or None
 
         Returns

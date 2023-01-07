@@ -7,12 +7,12 @@ from loguru import logger
 
 class DynColor(BaseModel):
     dyn_blue: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
+    dyn_green:Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_pink: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_black: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_white: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_gray: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
-    dyn_silver_gray: Union[str, Tuple[int, int, int],
-                           Tuple[int, int, int, int]]
+    dyn_silver_gray: Union[str, Tuple[int, int, int],Tuple[int, int, int, int]]
 
 
 class DynFontPath(BaseModel):
@@ -139,6 +139,7 @@ class ConfigInit:
         if not kargs:
             self.dyn_color = DynColor(**{
                 "dyn_blue": "#00a1d6",
+                "dyn_green": "#3ce84e",
                 "dyn_pink": "#fb6b94",
                 "dyn_black": "black",
                 "dyn_white": "#ffffff",

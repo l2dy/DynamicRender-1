@@ -23,14 +23,14 @@ class DynTextRender:
         self.dyn_font_path = dyn_font_path
         self.dyn_size = dyn_size
 
-    async def run(dyn_text: Text, type: Optional[str] = None) -> Optional[Image.Image]:
+    async def run(self, dyn_text: Text, dyn_type: Optional[str] = None) -> Optional[Image.Image]:
         """Render the text of the dynamic into image
 
         Parameters
         ----------
         dyn_text : Text
             The text of the dynamic
-        type : Optional[str]
+        dyn_type : Optional[str]
             F or None
         Returns
         -------

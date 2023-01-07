@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 tests
 .vscode
 .idea
-=======
-tests
->>>>>>> origin/master
+mt
+dynamicrender/__pycache__
+Static
