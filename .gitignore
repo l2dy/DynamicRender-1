@@ -2,3 +2,5 @@ tests
 .vscode
 .idea
 mt
+dynamicrender/__pycache__
+Static

@@ -1,10 +1,10 @@
 from .DynConfig import DynColor, DynFontPath, DynSize
 from .Core import Image
 from dynamicadaptor.Header import Head
-from .Tools import circle_picture
+from .Tools import circle_picture,get_pictures
 from os import path
-
-
+from loguru import logger
+from typing import Optional
 class DynHeaderRender:
     def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
         """Initial configuration
@@ -26,8 +26,9 @@ class DynHeaderRender:
         self.dyn_size: DynSize = dyn_size
         self.cache_path = path.join(self.static_path, "Cache")
         self.src_path = path.join(self.static_path, "Src")
+        self.back_groud_img = None
 
-    async def run(self, dyn_head: Head) -> Image.Image:
+    async def run(self, dyn_head: Head) -> Optional[Image.Image]:
         """Render the head of the dynamic into image
 
         Parameters
@@ -37,20 +38,27 @@ class DynHeaderRender:
 
         Returns
         -------
-        Image.Image
+        Optional[Image.Image]
             Rendered image
         """
-        pass
+        try:
+            self.back_groud_img = Image.new("RGBA", (1080, 400), self.dyn_color.dyn_white)
+        except Exception as e:
+            logger.warning(e)
+            return None
 
-    async def get_pic(self, img_type: str, img_name: str, img_url: str):
-        """
-        get picture by name
-        :param img_url:
-        :param img_type:
-        :param img_name:
-        :return:
-        """
-        pass
+
+
+    # async def picup_info(self):
+    #     pass
+
+    # async def get_pic(self,img_type:str):
+    #     if img_type == "face":
+    #         pa
+
+
+        
+        
 
 
 class DynForwardHeaderRender:
@@ -89,3 +97,4 @@ class DynForwardHeaderRender:
         """
 
         pass
+    

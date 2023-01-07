@@ -56,8 +56,7 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
             return None
 
 
-async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[int] = None) -> Optional[
-    Image.Image, None]:
+async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[int] = None) -> Optional[Image.Image]:
     """
     发送网络请求
     :param img_size: If the image needs to be scaled, this parameter is the size of the scaled image
