@@ -23,12 +23,18 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     :param scal_size:
     :return:
     """
+
+    img_origin_size = img.size
+    img = img.resize((img_origin_size[0] * 3, img_origin_size[1] * 3))
     img_size = img.size
-    mask = Image.new("L", (img_size[0] * 3, img_size[1] * 3), 0)
+
+    mask = Image.new("L", (img_size[0], img_size[1]), 0)
     draw = ImageDraw.Draw(mask)
-    draw.ellipse((0, 0, img_size[0] * 3, img_size[1] * 3), fill=255)
-    mask = mask.resize(img_size)
+    draw.ellipse((0, 0, img_size[0], img_size[1]), fill=255)
     img.putalpha(mask)
+    draw = ImageDraw.Draw(img)
+    draw.ellipse((0,0,img_size[0], img_size[1]),outline=(251, 114, 153),width=10)
+    img = img.resize(img_origin_size)
     if scal_size:
         img = img.resize((scal_size, scal_size))
     return img
