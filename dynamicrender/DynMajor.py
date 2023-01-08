@@ -3,6 +3,7 @@ from .Core import Image, Optional
 from dynamicadaptor.Majors import Major
 from loguru import logger
 from .Tools import get_pictures
+from math import ceil
 
 
 class DynMajorRender:
@@ -126,9 +127,8 @@ class DynMajorDraw:
                 url_list.append(f"{src}@260w_260h_!header.webp")
             else:
                 url_list.append(f"{src}@260w_260h_1e_1c.webp")
-        num = round(len(self.items) / 3)
+        num =  ceil(len(self.items) / 3)
         imgs = await get_pictures(url_list,[346]*len(self.items))
-        num = round(len(self.items) / 3)
         back_size = int(num * 346 + 20 * num)
         self.backgroud_img = Image.new("RGBA",(1080,back_size),backgroud_color)
         x, y = 11, 10
