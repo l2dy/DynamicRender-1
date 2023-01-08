@@ -81,7 +81,7 @@ async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[i
             img = img.resize((img_size, img_size))
         return img
     except Exception:
-        
+        print(url)
         # try:
         #     url = re.compile(r"@(.*?).webp").sub('', url)
         #     response = await client.get(url)
