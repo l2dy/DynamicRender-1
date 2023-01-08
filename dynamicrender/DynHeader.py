@@ -46,7 +46,6 @@ class DynHeaderRender:
         Optional[Image.Image]
             Rendered image
         """
-        start = time.perf_counter()
         self.cache_path = path.join(self.static_path, "Cache")
         self.src_path = path.join(self.static_path, "Src")
         try:
@@ -54,11 +53,10 @@ class DynHeaderRender:
             self.backgroud_img = Image.new(
                 "RGBA", (1080, 400), self.dyn_color.dyn_white)
             self.draw = ImageDraw.Draw(self.backgroud_img)
-            
 
             #The gather function is executed out of order. 
             # To prevent the pendent and vip images from being under the face image, 
-            # draw_pendant() and draw_vip need to be executed separately
+            # draw_pendant and draw_vip need to be executed separately
 
             await asyncio.gather(*[
                 self.draw_name(),
@@ -67,10 +65,10 @@ class DynHeaderRender:
             ])
             await self.draw_pendant()
             await self.draw_vip()
-            print(time.perf_counter()-start)
-            self.backgroud_img.show()
+
+            return self.backgroud_img
         except Exception as e:
-            logger.exception(e)
+            logger.exception("error")
             return None
 
     async def draw_name(self) -> None:
@@ -137,7 +135,7 @@ class DynHeaderRender:
 
     async def get_face_and_pendant(self, img_type: str) -> Optional[Image.Image]:
         if img_type == "face":
-            img_name = f"{self.head_message.name}.webp"
+            img_name = f"{self.head_message.mid}.webp"
             img_url = f"{self.head_message.face}@120w_120h_1c_1s.webp"
             img_path = path.join(self.cache_path,"Face",img_name) 
         else:
