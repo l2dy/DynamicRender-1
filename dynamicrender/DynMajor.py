@@ -124,9 +124,9 @@ class DynMajorDraw:
             img_height = item.height
             img_width = item.width
             if img_height / img_width > 3:
-                url_list.append(f"{src}@260w_260h_!header.webp")
+                url_list.append(f"{src}@346w_346h_!header.webp")
             else:
-                url_list.append(f"{src}@260w_260h_1e_1c.webp")
+                url_list.append(f"{src}@346w_346h_1e_1c.webp")
         num =  ceil(len(self.items) / 3)
         imgs = await get_pictures(url_list,[346]*len(self.items))
         back_size = int(num * 346 + 20 * num)
