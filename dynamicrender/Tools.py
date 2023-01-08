@@ -1,5 +1,5 @@
 import asyncio
-
+import re
 from PIL import Image, ImageDraw
 import numpy as np
 from typing import Optional, Union
@@ -55,7 +55,10 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
                 img = img.resize((img_size, img_size))
             return img
         if isinstance(url, list):
-            task = [send_request(client, i) for i in url]
+            if img_size:
+                task = [send_request(client, url[i],img_size[i]) for i in range(len(url))]
+            else:
+                task = [send_request(client, i) for i in url]
             result = await asyncio.gather(*task)
             return result
         else:
@@ -72,10 +75,20 @@ async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[i
     """
     try:
         response = await client.get(url)
-        img = Image.open(BytesIO(response.content)).convert("RGBA")
+        img = Image.open(BytesIO(response.content))
+        img= img.convert("RGBA")
         if img_size:
             img = img.resize((img_size, img_size))
         return img
     except Exception:
-        logger.exception("error")
+        
+        # try:
+        #     url = re.compile(r"@(.*?).webp").sub('', url)
+        #     response = await client.get(url)
+        #     img = Image.open(BytesIO(response.content))
+        #     img= img.convert("RGBA")
+        #     if img_size:
+        #         img = img.resize((img_size, img_size))
+        #     return img
+        # except Exception as e:
         return None
