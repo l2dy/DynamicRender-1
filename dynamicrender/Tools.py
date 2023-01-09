@@ -1,12 +1,11 @@
 import asyncio
-
 from PIL import Image, ImageDraw
 import numpy as np
 from typing import Optional, Union
 import httpx
 from loguru import logger
 from io import BytesIO
-
+import time
 
 async def merge_pictures(pic_list: list) -> Image.Image:
     img_list = [i for i in pic_list if i is not None]
@@ -40,7 +39,9 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     return img
 
 
-async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] = None) -> Union[
+        
+
+async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) -> Union[
     None, Image.Image, list]:
     """
     get images from net
@@ -48,15 +49,24 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
     :param url:
     :return:
     """
+    
     async with httpx.AsyncClient() as client:
+        start = time.perf_counter()
         if isinstance(url, str):
-            img = await send_request(client, url)
-            if img_size and isinstance(img_size, int):
-                img = img.resize((img_size, img_size))
+            
+            if img_size:
+                img = await send_request(client, url,img_size)
+            else:
+                img = await send_request(client, url)
+            print(time.perf_counter()-start)
             return img
         if isinstance(url, list):
-            task = [send_request(client, i) for i in url]
+            if img_size:
+                task = [send_request(client, i,img_size) for i in url]
+            else:
+                task = [send_request(client, i) for i in url]
             result = await asyncio.gather(*task)
+            print(time.perf_counter()-start)
             return result
         else:
             return None
@@ -72,10 +82,10 @@ async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[i
     """
     try:
         response = await client.get(url)
-        img = Image.open(BytesIO(response.content)).convert("RGBA")
+        img = Image.open(BytesIO(response.content))
+        img= img.convert("RGBA")
         if img_size:
             img = img.resize((img_size, img_size))
         return img
     except Exception:
-        logger.exception("error")
         return None
