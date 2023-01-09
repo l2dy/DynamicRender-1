@@ -43,8 +43,11 @@ class DynMajorRender:
         """
         try:
             major_type = dyn_maojor.type
+            print(major_type)
             if major_type == "MAJOR_TYPE_DRAW":
                 return await DynMajorDraw(dyn_maojor, dyn_type, self.dyn_color).run()
+            if major_type == "MAJOR_TYPE_ARCHIVE":
+                return await DynMajorArchive(self.static_path, self.dyn_color, self.dyn_font_path, self.dyn_size).run(dyn_maojor, dyn_type)
         except Exception as e:
             logger.exception(e)
             return None
@@ -105,13 +108,15 @@ class DynMajorDraw:
                 url_list.append(f"{src}@520w_520h_!header.webp")
             else:
                 url_list.append(f"{src}@520w_520h_1e_1c.webp")
-        imgs = await get_pictures(url_list,[520]* len(url_list))
+        imgs = await get_pictures(url_list, [520] * len(url_list))
         num = len(url_list) / 2
         back_size = int(num * 520 + 20 * num)
-        self.backgroud_img = Image.new("RGBA",(1080,back_size),backgroud_color)
+        self.backgroud_img = Image.new(
+            "RGBA", (1080, back_size), backgroud_color)
         x, y = 15, 10
         for i in imgs:
-            self.backgroud_img.paste(i,(x,y),i)
+            if i is not None:
+                self.backgroud_img.paste(i, (x, y), i)
             x += 530
             if x > 1000:
                 x = 15
@@ -124,18 +129,55 @@ class DynMajorDraw:
             img_height = item.height
             img_width = item.width
             if img_height / img_width > 3:
-                url_list.append(f"{src}@346w_346h_!header.webp")
+                # url_list.append(f"{src}@346w_346h_!header.webp")
+                url_list.append(f"{src}@260w_260h_!header.webp")
             else:
-                url_list.append(f"{src}@346w_346h_1e_1c.webp")
-        num =  ceil(len(self.items) / 3)
-        imgs = await get_pictures(url_list,[346]*len(self.items))
+                # url_list.append(f"{src}@346w_346h_1e_1c.webp")
+                url_list.append(f"{src}@260w_260h_1e_1c.webp")
+        num = ceil(len(self.items) / 3)
+        imgs = await get_pictures(url_list, [346]*len(self.items))
         back_size = int(num * 346 + 20 * num)
-        self.backgroud_img = Image.new("RGBA",(1080,back_size),backgroud_color)
+        self.backgroud_img = Image.new(
+            "RGBA", (1080, back_size), backgroud_color)
         x, y = 11, 10
         for img in imgs:
             if img is not None:
-                self.backgroud_img.paste(img,(x,y),img)                
+                self.backgroud_img.paste(img, (x, y), img)
             x += 356
             if x > 1000:
                 x = 11
                 y += 356
+
+
+class DynMajorArchive:
+    def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
+        """Initial configuration
+
+        Parameters
+        ----------
+        static_path : str
+            path to the static file
+        dyn_color : DynColor
+            color information in the configuration
+        dyn_font_path : DynFontPath
+            font_path information in the configuration
+        dyn_size : DynSize
+            size information in the configuration
+        """
+        self.static_path: str = static_path
+        self.dyn_color: DynColor = dyn_color
+        self.dyn_font_path: DynFontPath = dyn_font_path
+        self.dyn_size: DynSize = dyn_size
+        self.backgroud_img = None
+
+    async def run(self, dyn_maojor: Major, dyn_type) -> Optional[Image.Image]:
+        backgroud_color = self.dyn_color.dyn_gray if dyn_type == "F" else self.dyn_color.dyn_white
+        self.backgroud_img = Image.new("RGBA", (1080, 695), backgroud_color)
+        cover = dyn_maojor.archive.cover
+        title = dyn_maojor.archive.title
+        duration = dyn_maojor.archive.duration_text
+        
+
+
+        return self.backgroud_img
+        

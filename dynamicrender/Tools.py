@@ -5,7 +5,7 @@ from typing import Optional, Union
 import httpx
 from loguru import logger
 from io import BytesIO
-
+import time
 
 async def merge_pictures(pic_list: list) -> Image.Image:
     img_list = [i for i in pic_list if i is not None]
@@ -39,6 +39,10 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     return img
 
 
+class NetWorkManager:
+    pass
+        
+
 async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] = None) -> Union[
     None, Image.Image, list]:
     """
@@ -47,11 +51,14 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
     :param url:
     :return:
     """
+    
     async with httpx.AsyncClient() as client:
+        start = time.perf_counter()
         if isinstance(url, str):
             img = await send_request(client, url)
             if img_size and isinstance(img_size, int):
                 img = img.resize((img_size, img_size))
+            print(time.perf_counter()-start)
             return img
         if isinstance(url, list):
             if img_size:
@@ -59,6 +66,7 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
             else:
                 task = [send_request(client, i) for i in url]
             result = await asyncio.gather(*task)
+            print(time.perf_counter()-start)
             return result
         else:
             return None
