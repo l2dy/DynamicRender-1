@@ -190,6 +190,8 @@ class DynForwardHeaderRender:
         self.dyn_color: DynColor = dyn_color
         self.dyn_font_path: DynFontPath = dyn_font_path
         self.dyn_size: DynSize = dyn_size
+        self.backgroud = None
+        self.draw = None
 
     async def run(self, forward_dyn_head: Head) -> Image.Image:
         """Render the forward head of the dynamic into image
@@ -206,4 +208,52 @@ class DynForwardHeaderRender:
 
         """
 
-        pass
+        self.cache_path = path.join(self.static_path, "Cache")
+        self.backgroud = Image.new("RGBA",(1080,100),self.dyn_color.dyn_gray)
+        self.draw = ImageDraw.Draw(self.backgroud)
+
+        await asyncio.gather(self.draw_face(forward_dyn_head),self.draw_name(forward_dyn_head))
+        return self.backgroud
+    
+
+    async def draw_face(self,forward_dyn_head: Head):
+        
+        if forward_dyn_head.face:
+            face = await self.get_face(forward_dyn_head)
+            if face:
+                face = await circle_picture(face)
+                self.backgroud.paste(face,(40,10),face)
+
+
+    async def draw_name(self,forward_dyn_head: Head):
+        uname = forward_dyn_head.name
+        font = ImageFont.truetype(font=self.dyn_font_path.text, size=self.dyn_size.uname)
+        if forward_dyn_head.face:
+            box = (140,20)
+        else:
+            box = (40,20)
+        self.draw.text(box,uname,fill=self.dyn_color.dyn_blue,font=font)
+        
+    async def get_face(self,forward_dyn_head: Head):
+        img_name = f"{forward_dyn_head.mid}.webp"
+        img_url = f"{forward_dyn_head.face}@240w_240h_1c_1s.webp"
+        img_path = path.join(self.cache_path,"Face",img_name)
+        if path.exists(img_path):
+            if time.time() - int(path.getmtime(img_path)) > 43200:
+                img = await get_pictures(img_url,80)
+                if isinstance(img,Image.Image):
+                    img.save(img_path)
+                    return img
+                else:
+                    return None
+            else:
+                img = Image.open(img_path)
+                return img
+        else:
+            img = await get_pictures(img_url,80)
+            if isinstance(img,Image.Image):
+                img.save(img_path)
+                return img
+            else:
+                return None
+
