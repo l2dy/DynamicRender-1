@@ -136,16 +136,18 @@ class DynHeaderRender:
     async def get_face_and_pendant(self, img_type: str) -> Optional[Image.Image]:
         if img_type == "face":
             img_name = f"{self.head_message.mid}.webp"
-            img_url = f"{self.head_message.face}@120w_120h_1c_1s.webp"
+            # img_url = f"{self.head_message.face}@120w_120h_1c_1s.webp"
+            img_url = f"{self.head_message.face}@240w_240h_1c_1s.webp"
             img_path = path.join(self.cache_path,"Face",img_name) 
         else:
             img_name =  f"{self.head_message.pendant.pid}.png"
-            img_url = f"{self.head_message.pendant.image}@190w_190h.webp"
+            # img_url = f"{self.head_message.pendant.image}@190w_190h.webp"
+            img_url = f"{self.head_message.pendant.image}@360w_360h.webp"
             img_path = path.join(self.cache_path,"Pendant",img_name)
 
         if path.exists(img_path):
             if img_type == "face" and time.time() - int(path.getmtime(img_path)) > 43200:
-                img = await get_pictures(img_url)
+                img = await get_pictures(img_url,120)
                 if isinstance(img,Image.Image):
                     img.save(img_path)
                     return img
@@ -155,7 +157,8 @@ class DynHeaderRender:
                 img = Image.open(img_path)
                 return img
         else:
-            img = await get_pictures(img_url)
+            img_size = 120 if img_type == "face" else 190
+            img = await get_pictures(img_url,img_size)
             if isinstance(img,Image.Image):
                 img.save(img_path)
                 return img

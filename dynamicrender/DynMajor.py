@@ -85,7 +85,8 @@ class DynMajorDraw:
         img_height = self.items[0].height
         img_width = self.items[0].width
         if img_height / img_width > 4:
-            img_url = f"{src}@{img_width}w_{img_width}h_!header.webp"
+            # img_url = f"{src}@{img_width}w_{img_width}h_!header.webp"
+            img_url = f"{src}@{600}w_{800}h_!header.webp"
         else:
             img_url = src
         img = await get_pictures(img_url)
@@ -129,10 +130,8 @@ class DynMajorDraw:
             img_height = item.height
             img_width = item.width
             if img_height / img_width > 3:
-                # url_list.append(f"{src}@346w_346h_!header.webp")
                 url_list.append(f"{src}@260w_260h_!header.webp")
             else:
-                # url_list.append(f"{src}@346w_346h_1e_1c.webp")
                 url_list.append(f"{src}@260w_260h_1e_1c.webp")
         num = ceil(len(self.items) / 3)
         imgs = await get_pictures(url_list, [346]*len(self.items))
