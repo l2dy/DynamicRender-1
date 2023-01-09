@@ -39,11 +39,9 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     return img
 
 
-class NetWorkManager:
-    pass
         
 
-async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] = None) -> Union[
+async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) -> Union[
     None, Image.Image, list]:
     """
     get images from net
@@ -55,14 +53,16 @@ async def get_pictures(url: Union[str, list], img_size: Union[int, list, None] =
     async with httpx.AsyncClient() as client:
         start = time.perf_counter()
         if isinstance(url, str):
-            img = await send_request(client, url)
-            if img_size and isinstance(img_size, int):
-                img = img.resize((img_size, img_size))
+            
+            if img_size:
+                img = await send_request(client, url,img_size)
+            else:
+                img = await send_request(client, url)
             print(time.perf_counter()-start)
             return img
         if isinstance(url, list):
             if img_size:
-                task = [send_request(client, url[i],img_size[i]) for i in range(len(url))]
+                task = [send_request(client, i,img_size) for i in url]
             else:
                 task = [send_request(client, i) for i in url]
             result = await asyncio.gather(*task)

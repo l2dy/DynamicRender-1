@@ -105,11 +105,12 @@ class DynMajorDraw:
             src = item.src
             img_height = item.height
             img_width = item.width
+            # url_list.append(f"{src}@540w_540h_1c.webp")
             if img_height / img_width > 3:
                 url_list.append(f"{src}@520w_520h_!header.webp")
             else:
                 url_list.append(f"{src}@520w_520h_1e_1c.webp")
-        imgs = await get_pictures(url_list, [520] * len(url_list))
+        imgs = await get_pictures(url_list, 520)
         num = len(url_list) / 2
         back_size = int(num * 520 + 20 * num)
         self.backgroud_img = Image.new(
@@ -134,7 +135,7 @@ class DynMajorDraw:
             else:
                 url_list.append(f"{src}@260w_260h_1e_1c.webp")
         num = ceil(len(self.items) / 3)
-        imgs = await get_pictures(url_list, [346]*len(self.items))
+        imgs = await get_pictures(url_list, 346)
         back_size = int(num * 346 + 20 * num)
         self.backgroud_img = Image.new(
             "RGBA", (1080, back_size), backgroud_color)
