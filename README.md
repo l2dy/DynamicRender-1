@@ -13,13 +13,15 @@ from google.protobuf.json_format import MessageToDict
 from dynamicadaptor.DynamicConversion import formate_message
 from bilirpc.api import get_dy_detail
 import asyncio
-
+from dynamicrender.Core import DyRender 
 
 async def sample1():
     dynamic_grpc = await get_dy_detail("746530608345251842")
     dynamic: dict = MessageToDict(dynamic_grpc[0])
     dynamic_formate = formate_message("grpc", dynamic)
-    print(dynamic_formate)
+    result = await render.dyn_render(dynamic_formate)
+    result.show()
+    # print(dynamic_formate)
     
 asyncio.run(sample1())
 
@@ -38,10 +40,10 @@ async def sample2():
     }
     result = httpx.get(url, headers=headers).json()
     dynamic_formate = formate_message("web", result["data"]["item"])
-    
-    print(dynamic_formate)
+    result = await render.dyn_render(dynamic_formate)
+    result.show()
 
 
-asyncio.run(sample2())
+# asyncio.run(sample2())
 
 ```

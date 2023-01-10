@@ -3,9 +3,8 @@ from PIL import Image, ImageDraw
 import numpy as np
 from typing import Optional, Union
 import httpx
-from loguru import logger
 from io import BytesIO
-import time
+
 
 async def merge_pictures(pic_list: list) -> Image.Image:
     img_list = [i for i in pic_list if i is not None]
@@ -32,41 +31,36 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     draw.ellipse((0, 0, img_size[0], img_size[1]), fill=255)
     img.putalpha(mask)
     draw = ImageDraw.Draw(img)
-    draw.ellipse((0,0,img_size[0], img_size[1]),outline=(251, 114, 153),width=10)
+    draw.ellipse((0, 0, img_size[0], img_size[1]),
+                 outline=(251, 114, 153), width=10)
     img = img.resize(img_origin_size)
     if scal_size:
         img = img.resize((scal_size, scal_size))
     return img
 
 
-        
-
 async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) -> Union[
-    None, Image.Image, list]:
+        None, Image.Image, list]:
     """
     get images from net
     :param img_size: If the image needs to be scaled, this parameter is the size of the scaled image
     :param url:
     :return:
     """
-    
+
     async with httpx.AsyncClient() as client:
-        start = time.perf_counter()
         if isinstance(url, str):
-            
             if img_size:
-                img = await send_request(client, url,img_size)
+                img = await send_request(client, url, img_size)
             else:
                 img = await send_request(client, url)
-            print(time.perf_counter()-start)
             return img
         if isinstance(url, list):
             if img_size:
-                task = [send_request(client, i,img_size) for i in url]
+                task = [send_request(client, i, img_size) for i in url]
             else:
                 task = [send_request(client, i) for i in url]
             result = await asyncio.gather(*task)
-            print(time.perf_counter()-start)
             return result
         else:
             return None
@@ -83,7 +77,7 @@ async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[i
     try:
         response = await client.get(url)
         img = Image.open(BytesIO(response.content))
-        img= img.convert("RGBA")
+        img = img.convert("RGBA")
         if img_size:
             img = img.resize((img_size, img_size))
         return img
