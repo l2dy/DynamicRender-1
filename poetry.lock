@@ -103,19 +103,38 @@ reference = "url"
 
 [[package]]
 name = "dynamicadaptor"
-version = "0.1.7"
+version = "0.1.9"
 description = ""
 category = "main"
 optional = false
 python-versions = ">=3.8.0,<4.0.0"
 files = [
-    {file = "dynamicadaptor-0.1.7-py3-none-any.whl", hash = "sha256:fa71539a8a67e3f88298dd39502b8bee41e0e6729e0cddab599b63368a6dc4ac"},
-    {file = "dynamicadaptor-0.1.7.tar.gz", hash = "sha256:976350205fa225840bf6026cb1fd926206479bfbfd5147b7347dfcefeb0255a5"},
+    {file = "dynamicadaptor-0.1.9-py3-none-any.whl", hash = "sha256:269b258e964795d10104bc94eb027e10f6527d1fb466bbfeddd49dc2d000a791"},
+    {file = "dynamicadaptor-0.1.9.tar.gz", hash = "sha256:cd616a39d8430768f2317301f3d0c6d79e01be772a405e158d334a3ae5eda37d"},
 ]
 
 [package.dependencies]
 loguru = ">=0.6.0,<0.7.0"
 pydantic = ">=1.10.4,<2.0.0"
+
+[package.source]
+type = "legacy"
+url = "https://pypi.org/simple"
+reference = "url"
+
+[[package]]
+name = "emoji"
+version = "2.2.0"
+description = "Emoji for Python"
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+files = [
+    {file = "emoji-2.2.0.tar.gz", hash = "sha256:a2986c21e4aba6b9870df40ef487a17be863cb7778dcf1c01e25917b7cd210bb"},
+]
+
+[package.extras]
+dev = ["coverage", "coveralls", "pytest"]
 
 [package.source]
 type = "legacy"
@@ -738,4 +757,4 @@ reference = "url"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "d9c302d36a06d6f8fb0596b88fed3da9ca54b295e3e79dfb8312a8d8605f2e15"
+content-hash = "c56b5e0c8539920b50c4d08c9ca1ca405eb25df5b4fec6fa34f935153be6c935"

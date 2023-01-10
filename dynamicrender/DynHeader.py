@@ -8,6 +8,7 @@ from typing import Optional
 import asyncio
 import time
 
+
 class DynHeaderRender:
     def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
         """Initial configuration
@@ -54,8 +55,8 @@ class DynHeaderRender:
                 "RGBA", (1080, 400), self.dyn_color.dyn_white)
             self.draw = ImageDraw.Draw(self.backgroud_img)
 
-            #The gather function is executed out of order. 
-            # To prevent the pendent and vip images from being under the face image, 
+            # The gather function is executed out of order.
+            # To prevent the pendent and vip images from being under the face image,
             # draw_pendant and draw_vip need to be executed separately
 
             await asyncio.gather(*[
@@ -72,7 +73,6 @@ class DynHeaderRender:
             return None
 
     async def draw_name(self) -> None:
-        # print(self.dyn_font_path.text)
         font = ImageFont.truetype(
             font=self.dyn_font_path.text, size=self.dyn_size.uname)
         # 如果是大会员的话
@@ -86,69 +86,72 @@ class DynHeaderRender:
         else:
             color = self.dyn_color.dyn_black
 
-        self.draw.text((200, 250), self.head_message.name, fill=color,font=font)
-        logo =  Image.open(path.join(self.src_path, "bilibili.png")).convert("RGBA").resize((231, 105))
-        self.backgroud_img.paste(logo,(433, 20),logo)
-
+        self.draw.text((200, 250), self.head_message.name,
+                       fill=color, font=font)
+        logo = Image.open(path.join(self.src_path, "bilibili.png")).convert(
+            "RGBA").resize((231, 105))
+        self.backgroud_img.paste(logo, (433, 20), logo)
 
     async def draw_face(self) -> None:
         face = await self.get_face_and_pendant("face")
         if face:
-            face = await circle_picture(face)
-            self.backgroud_img.paste(face,(45, 245),face)
+            face = await circle_picture(face, 120)
+            self.backgroud_img.paste(face, (45, 245), face)
 
     async def draw_pub_time(self) -> None:
         if self.head_message.pub_time:
             pub_time = self.head_message.pub_time
         elif self.head_message.pub_ts:
-            pub_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(self.head_message.pub_ts))
+            pub_time = time.strftime(
+                "%Y-%m-%d %H:%M:%S", time.localtime(self.head_message.pub_ts))
         else:
-            pub_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(time.time))
-        font = ImageFont.truetype(self.dyn_font_path.text,self.dyn_size.sub_text) 
-        self.draw.text((200, 320),pub_time,self.dyn_color.dyn_silver_gray,font)
-
+            pub_time = time.strftime(
+                "%Y-%m-%d %H:%M:%S", time.localtime(time.time))
+        font = ImageFont.truetype(
+            self.dyn_font_path.text, self.dyn_size.sub_text)
+        self.draw.text((200, 320), pub_time,
+                       self.dyn_color.dyn_silver_gray, font)
 
     async def draw_pendant(self) -> None:
         if self.head_message.pendant and self.head_message.pendant.image:
             pendant = await self.get_face_and_pendant("pendant")
             if pendant:
-                self.backgroud_img.paste(pendant,(10,210),pendant)
+                pendant = pendant.resize((190, 190))
+                self.backgroud_img.paste(pendant, (10, 210), pendant)
 
     async def draw_vip(self):
         if self.head_message.official_verify and self.head_message.official_verify.type != -1:
             if self.head_message.official_verify.type == 0:
-                img_path = path.join(self.src_path,"official_yellow.png")
+                img_path = path.join(self.src_path, "official_yellow.png")
             else:
-                img_path = path.join(self.src_path,"official_blue.png")
-            official_img = Image.open(img_path).resize((45, 45)).convert("RGBA")
-            self.backgroud_img.paste(official_img,(120, 330),official_img)
+                img_path = path.join(self.src_path, "official_blue.png")
+            official_img = Image.open(img_path).resize(
+                (45, 45)).convert("RGBA")
+            self.backgroud_img.paste(official_img, (120, 330), official_img)
         elif self.head_message.vip and self.head_message.vip.status == 1:
             if self.head_message.vip.avatar_subscript == 1:
-                img_path = path.join(self.src_path,"big_vip.png")
+                img_path = path.join(self.src_path, "big_vip.png")
             else:
-                img_path = path.join(self.src_path,"small_vip.png")
+                img_path = path.join(self.src_path, "small_vip.png")
             vip_image = Image.open(img_path).resize((45, 45)).convert("RGBA")
-            self.backgroud_img.paste(vip_image,(120, 330),vip_image)
-
-
-            
+            self.backgroud_img.paste(vip_image, (120, 330), vip_image)
 
     async def get_face_and_pendant(self, img_type: str) -> Optional[Image.Image]:
         if img_type == "face":
             img_name = f"{self.head_message.mid}.webp"
             # img_url = f"{self.head_message.face}@120w_120h_1c_1s.webp"
             img_url = f"{self.head_message.face}@240w_240h_1c_1s.webp"
-            img_path = path.join(self.cache_path,"Face",img_name) 
+            img_path = path.join(self.cache_path, "Face", img_name)
         else:
-            img_name =  f"{self.head_message.pendant.pid}.png"
+            img_name = f"{self.head_message.pendant.pid}.png"
             # img_url = f"{self.head_message.pendant.image}@190w_190h.webp"
             img_url = f"{self.head_message.pendant.image}@360w_360h.webp"
-            img_path = path.join(self.cache_path,"Pendant",img_name)
+            img_path = path.join(self.cache_path, "Pendant", img_name)
 
         if path.exists(img_path):
             if img_type == "face" and time.time() - int(path.getmtime(img_path)) > 43200:
-                img = await get_pictures(img_url,120)
-                if isinstance(img,Image.Image):
+                img = await get_pictures(img_url)
+                if isinstance(img, Image.Image):
                     img.save(img_path)
                     return img
                 else:
@@ -157,18 +160,12 @@ class DynHeaderRender:
                 img = Image.open(img_path)
                 return img
         else:
-            img_size = 120 if img_type == "face" else 190
-            img = await get_pictures(img_url,img_size)
-            if isinstance(img,Image.Image):
+            img = await get_pictures(img_url)
+            if isinstance(img, Image.Image):
                 img.save(img_path)
                 return img
             else:
                 return None
-
-                    
-
-
-
 
 
 class DynForwardHeaderRender:
@@ -209,39 +206,39 @@ class DynForwardHeaderRender:
         """
 
         self.cache_path = path.join(self.static_path, "Cache")
-        self.backgroud = Image.new("RGBA",(1080,100),self.dyn_color.dyn_gray)
+        self.backgroud = Image.new(
+            "RGBA", (1080, 100), self.dyn_color.dyn_gray)
         self.draw = ImageDraw.Draw(self.backgroud)
 
-        await asyncio.gather(self.draw_face(forward_dyn_head),self.draw_name(forward_dyn_head))
+        await asyncio.gather(self.draw_face(forward_dyn_head), self.draw_name(forward_dyn_head))
         return self.backgroud
-    
 
-    async def draw_face(self,forward_dyn_head: Head):
-        
+    async def draw_face(self, forward_dyn_head: Head):
+
         if forward_dyn_head.face:
             face = await self.get_face(forward_dyn_head)
             if face:
-                face = await circle_picture(face)
-                self.backgroud.paste(face,(40,10),face)
+                face = await circle_picture(face, 80)
+                self.backgroud.paste(face, (40, 10), face)
 
-
-    async def draw_name(self,forward_dyn_head: Head):
+    async def draw_name(self, forward_dyn_head: Head):
         uname = forward_dyn_head.name
-        font = ImageFont.truetype(font=self.dyn_font_path.text, size=self.dyn_size.uname)
+        font = ImageFont.truetype(
+            font=self.dyn_font_path.text, size=self.dyn_size.uname)
         if forward_dyn_head.face:
-            box = (140,20)
+            box = (140, 20)
         else:
-            box = (40,20)
-        self.draw.text(box,uname,fill=self.dyn_color.dyn_blue,font=font)
-        
-    async def get_face(self,forward_dyn_head: Head):
+            box = (35, 20)
+        self.draw.text(box, uname, fill=self.dyn_color.dyn_blue, font=font)
+
+    async def get_face(self, forward_dyn_head: Head):
         img_name = f"{forward_dyn_head.mid}.webp"
         img_url = f"{forward_dyn_head.face}@240w_240h_1c_1s.webp"
-        img_path = path.join(self.cache_path,"Face",img_name)
+        img_path = path.join(self.cache_path, "Face", img_name)
         if path.exists(img_path):
             if time.time() - int(path.getmtime(img_path)) > 43200:
-                img = await get_pictures(img_url,80)
-                if isinstance(img,Image.Image):
+                img = await get_pictures(img_url)
+                if isinstance(img, Image.Image):
                     img.save(img_path)
                     return img
                 else:
@@ -250,10 +247,9 @@ class DynForwardHeaderRender:
                 img = Image.open(img_path)
                 return img
         else:
-            img = await get_pictures(img_url,80)
-            if isinstance(img,Image.Image):
+            img = await get_pictures(img_url)
+            if isinstance(img, Image.Image):
                 img.save(img_path)
                 return img
             else:
                 return None
-
