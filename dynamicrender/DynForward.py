@@ -1,10 +1,11 @@
 from dynamicadaptor.Repost import Forward
-from .DynConfig import DynColor, DynFontPath, DynSize
+
 from .Core import Image, asyncio
-from .DynHeader import DynForwardHeaderRender
-from .DynText import DynTextRender
-from .DynMajor import DynMajorRender
 from .DynAdditional import DynAdditionalRender
+from .DynConfig import DynColor, DynFontPath, DynSize
+from .DynHeader import DynForwardHeaderRender
+from .DynMajor import DynMajorRender
+from .DynText import DynTextRender
 from .Tools import merge_pictures
 
 

@@ -1,6 +1,7 @@
-from .DynConfig import DynColor, DynFontPath, DynSize
-from .Core import Image,Optional
 from dynamicadaptor.AddonCard import Additional
+
+from .Core import Image, Optional
+from .DynConfig import DynColor, DynFontPath, DynSize
 
 
 class DynAdditionalRender:
@@ -18,13 +19,12 @@ class DynAdditionalRender:
         dyn_size : DynSize
             size information in the configuration
         """
-        self.static_path:str = static_path
-        self.dyn_color: DynColor =dyn_color
+        self.static_path: str = static_path
+        self.dyn_color: DynColor = dyn_color
         self.dyn_font_path: DynFontPath = dyn_font_path
         self.dyn_size: DynSize = dyn_size
-    
 
-    async def run(self,dyn_additional:Additional,type:Optional[str]=None) ->Optional[Image.Image]:
+    async def run(self, dyn_additional: Additional, type: Optional[str] = None) -> Optional[Image.Image]:
         """Render  additional of the dynamic into image
 
         Parameters

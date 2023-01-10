@@ -1,9 +1,10 @@
-from .DynConfig import DynColor, DynFontPath, DynSize
-from .Core import Image, Optional
 from dynamicadaptor.Majors import Major
 from loguru import logger
-from .Tools import get_pictures
 from math import ceil
+
+from .Core import Image, Optional
+from .DynConfig import DynColor, DynFontPath, DynSize
+from .Tools import get_pictures
 
 
 class DynMajorRender:
@@ -47,7 +48,8 @@ class DynMajorRender:
             if major_type == "MAJOR_TYPE_DRAW":
                 return await DynMajorDraw(dyn_maojor, dyn_type, self.dyn_color).run()
             if major_type == "MAJOR_TYPE_ARCHIVE":
-                return await DynMajorArchive(self.static_path, self.dyn_color, self.dyn_font_path, self.dyn_size).run(dyn_maojor, dyn_type)
+                return await DynMajorArchive(self.static_path, self.dyn_color, self.dyn_font_path, self.dyn_size).run(
+                    dyn_maojor, dyn_type)
         except Exception as e:
             logger.exception(e)
             return None
@@ -96,7 +98,7 @@ class DynMajorDraw:
                 (1008, int(img_ori_size[1] * 1008 / img_ori_size[0])))
             img_size = img.size
             self.backgroud_img = Image.new(
-                "RGBA", (1080, img_size[1]+20), backgroud_color)
+                "RGBA", (1080, img_size[1] + 20), backgroud_color)
             self.backgroud_img.paste(img, (36, 10), img)
 
     async def dual_img(self, backgroud_color: str):
@@ -176,8 +178,5 @@ class DynMajorArchive:
         cover = dyn_maojor.archive.cover
         title = dyn_maojor.archive.title
         duration = dyn_maojor.archive.duration_text
-        
-
 
         return self.backgroud_img
-        

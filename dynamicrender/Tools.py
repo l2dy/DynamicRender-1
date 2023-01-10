@@ -1,9 +1,9 @@
 import asyncio
-from PIL import Image, ImageDraw
-import numpy as np
-from typing import Optional, Union
 import httpx
+import numpy as np
+from PIL import Image, ImageDraw
 from io import BytesIO
+from typing import Optional, Union
 
 
 async def merge_pictures(pic_list: list) -> Image.Image:
@@ -40,7 +40,7 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
 
 
 async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) -> Union[
-        None, Image.Image, list]:
+    None, Image.Image, list]:
     """
     get images from net
     :param img_size: If the image needs to be scaled, this parameter is the size of the scaled image
