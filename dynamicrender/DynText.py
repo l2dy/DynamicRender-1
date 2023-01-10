@@ -1,5 +1,4 @@
 import emoji
-import time
 from PIL import Image, ImageFont, ImageDraw
 from asyncio import gather
 from dynamicadaptor.Content import Text
@@ -224,7 +223,7 @@ class DynTextRender:
                         emoji_img, (int(self.offset), 5), emoji_img)
                     self.offset += self.icon_size - 15
                     offset = emoji_text_list[offset]["match_end"]
-                    if self.offset >= 1020:
+                    if self.offset >= 1000:
                         self.pic_list.append(self.background)
                         self.background = Image.new(
                             "RGBA", (1080, self.icon_size), self.background_color)

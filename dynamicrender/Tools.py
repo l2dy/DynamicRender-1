@@ -39,7 +39,7 @@ async def circle_picture(img: Image.Image, scal_size: Optional[int] = None) -> I
     return img
 
 
-async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) -> Union[
+async def get_pictures(url: Union[str, list], img_size: Union[int,tuple,None] = None) -> Union[
     None, Image.Image, list]:
     """
     get images from net
@@ -66,7 +66,7 @@ async def get_pictures(url: Union[str, list], img_size: Optional[int] = None) ->
             return None
 
 
-async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[int] = None) -> Optional[Image.Image]:
+async def send_request(client: httpx.AsyncClient, url: str, img_size:Union[int,tuple,None] = None) -> Optional[Image.Image]:
     """
     发送网络请求
     :param img_size: If the image needs to be scaled, this parameter is the size of the scaled image
@@ -79,7 +79,10 @@ async def send_request(client: httpx.AsyncClient, url: str, img_size: Optional[i
         img = Image.open(BytesIO(response.content))
         img = img.convert("RGBA")
         if img_size:
-            img = img.resize((img_size, img_size))
+            if isinstance(img_size,int):
+                img = img.resize((img_size, img_size))
+            else:
+                img = img.resize(img_size)
         return img
     except Exception:
         return None

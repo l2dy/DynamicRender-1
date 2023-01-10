@@ -29,9 +29,10 @@ asyncio.run(sample1())
 
 # 如果是web返回的数据
 
-from dynamicadaptor.DynamicConversion import formate_message
 import asyncio
 import httpx
+from dynamicrender.Core import DyRender
+from dynamicadaptor.DynamicConversion import formate_message 
 
 async def sample2():
     url = "https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=746530608345251842"

@@ -14,20 +14,15 @@ httpx = "^0.23.2"
 numpy = "^1.24.1"
 dynamicadaptor = "0.1.9"
 emoji = "^2.2.0"
+fonttools = "^4.38.0"
 
 
 [[tool.poetry.source]]
 name = "url"
-url = "https://pypi.org/simple/"
+url = "https://pypi.mirrors.ustc.edu.cn/simple/"
 default = false
 secondary = false
 
-
-[[tool.poetry.source]]
-name = "secondary"
-url = "https://pypi.mirrors.ustc.edu.cn/simple/"
-default = false
-secondary = true
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.1"
