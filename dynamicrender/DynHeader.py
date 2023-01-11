@@ -1,5 +1,6 @@
 import asyncio
 import time
+import qrcode
 from PIL import ImageDraw, Image, ImageFont
 from dynamicadaptor.Header import Head
 from loguru import logger
@@ -254,3 +255,62 @@ class DynForwardHeaderRender:
                 return img
             else:
                 return None
+
+
+class DynFooterRender:
+    def __init__(self,static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
+        """Initial configuration
+
+        Parameters
+        ----------
+        static_path : str
+            path to the static file
+        dyn_color : DynColor
+            color information in the configuration
+        dyn_font_path : DynFontPath
+            font_path information in the configuration
+        dyn_size : DynSize
+            size information in the configuration
+        """
+        self.static_path: str = static_path
+        self.dyn_color: DynColor = dyn_color
+        self.dyn_font_path: DynFontPath = dyn_font_path
+        self.dyn_size: DynSize = dyn_size
+        self.cache_path = None
+        self.src_path = None
+        self.backgroud_img = None
+        self.draw = None
+        
+
+    async def run(self,message_id):
+        try:
+            self.src_path = path.join(self.static_path,"Src")
+            self.backgroud_img = Image.new("RGBA", (1080, 276), self.dyn_color.dyn_white)
+            qr_img = await self.make_qrcode(message_id)
+            bili_pic = Image.open(path.join(self.src_path, "bilibili.png")).convert("RGBA")
+            bili_pic = bili_pic.resize((int(bili_pic.size[0] / 4), int(bili_pic.size[1] / 4)))
+            font = ImageFont.truetype(self.dyn_font_path.text, 20, encoding='utf-8')
+            draw = ImageDraw.Draw(self.backgroud_img, "RGBA")
+            draw.text((50, 200), "扫描二维码查看动态", font=font, fill="#ff4e80")
+            self.backgroud_img.paste(bili_pic, (50, 90), bili_pic)
+            self.backgroud_img.paste(qr_img, (860, 80), qr_img)
+            return self.backgroud_img
+
+
+        except Exception as e:
+            logger.exception("error")
+            return None
+
+
+    async def make_qrcode(self, message_id: str) -> Image.Image:
+        """生成二维码
+
+        :param dynamic_id: 动态的ID
+        :type dynamic_id: str
+        :return: 二维码图片
+        :rtype: Image.Image
+        """
+        qr = qrcode.QRCode(
+            version=1, error_correction=qrcode.constants.ERROR_CORRECT_Q, box_size=3, border=1)
+        qr.add_data(f"https://t.bilibili.com/{message_id}")
+        return qr.make_image(fill_color="black").convert("RGBA").resize((164, 164))
