@@ -47,7 +47,6 @@ class DynAdditionalRender:
             Rendered image
         """
         additional_type = dyn_additional.type
-        print(additional_type)
         try:
             if additional_type == "ADDITIONAL_TYPE_COMMON":
                 return await DynAdditionalCommon(self.static_path, self.dyn_color, self.dyn_font_path, self.dyn_size).run(dyn_additional,dyn_type)
@@ -632,7 +631,6 @@ class DynAdditionalUpworkLottery:
             self.emoji_font = ImageFont.truetype(self.dyn_font_path.emoji,self.dyn_size.emoji)
             self.key_map = TTFont(self.dyn_font_path.text,fontNumber=0)['cmap'].tables[0].ttFont.getBestCmap().keys()
             self.src_path = path.join(self.static_path,"Src")
-            print(dyn_additional.upower_lottery)
             await asyncio.gather(
                 self.make_title(dyn_additional.upower_lottery.title),
                 self.make_desc(dyn_additional.upower_lottery.desc),

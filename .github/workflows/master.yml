@@ -48,6 +48,11 @@ jobs:
       with :
         artifacts: "*/*.whl,*/*.zip,*/*.tar.gz"
       
-
+      
+    - name : Publish to pypi
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_TOKEN }}
 
   

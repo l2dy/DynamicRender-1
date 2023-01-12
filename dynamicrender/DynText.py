@@ -4,6 +4,7 @@ from asyncio import gather
 from dynamicadaptor.Content import Text
 from loguru import logger
 from os import path
+from fontTools.ttLib import TTFont
 
 from .Core import Optional
 from .DynConfig import DynColor, DynFontPath, DynSize
@@ -41,6 +42,7 @@ class DynTextRender:
         self.pic_list = None
         self.icon_size = None
         self.emoji_dict = None
+        self.key_map=None
         self.offset = 45
 
     async def run(self, dyn_text: Text, dyn_type: Optional[str] = None) -> Optional[Image.Image]:
@@ -67,6 +69,8 @@ class DynTextRender:
         self.cache_fold = path.join(self.static_path, "Cache")
         self.src_fold = path.join(self.static_path, "Src")
         self.icon_size = int(self.dyn_size.text * 1.5)
+        self.key_map = TTFont(self.dyn_font_path.text,fontNumber=0)['cmap'].tables[0].ttFont.getBestCmap().keys()
+
         self.pic_list = []
         tasks = []
         try:
@@ -239,9 +243,14 @@ class DynTextRender:
                         self.offset = 45
 
                     else:
-                        self.draw.text(
-                            (self.offset, 0), text, fill=self.dyn_color.dyn_black, font=self.text_font)
-                        self.offset += self.text_font.getlength(text)
+                        if ord(text) in self.key_map:
+                            self.draw.text(
+                                (self.offset, 0), text, fill=self.dyn_color.dyn_black, font=self.text_font)
+                            self.offset += self.text_font.getlength(text)
+                        else:
+                            self.draw.text(
+                                (self.offset, 0), text, fill=self.dyn_color.dyn_black, font=self.extra_text_font)
+                            self.offset += self.extra_text_font.getlength(text)
                         if self.offset >= 1020:
                             self.pic_list.append(self.background)
                             self.background = Image.new(

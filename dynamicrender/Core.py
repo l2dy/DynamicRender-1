@@ -1,14 +1,14 @@
 from dynamicadaptor.Message import RenderMessage
-from .DynConfig import ConfigInit, Optional, Union
 from PIL import Image
 import asyncio
+
 from .DynHeader import DynHeaderRender, DynFooterRender
 from .DynText import DynTextRender
 from .DynMajor import DynMajorRender
 from .DynForward import DyForwardRender
 from .DynAdditional import DynAdditionalRender
 from .Tools import merge_pictures
-
+from .DynConfig import ConfigInit, Optional, Union
 
 class DyRender(ConfigInit):
     def __init__(self, data_path: Optional[str] = None, font_path: Union[None, str, dict] = None):
