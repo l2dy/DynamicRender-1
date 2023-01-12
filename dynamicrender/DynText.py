@@ -168,7 +168,7 @@ class DynTextRender:
                 if "goods" not in rich_dic:
                     img_path = path.join(self.src_fold, "taobao.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
-                    rich_dic["taobao"] = img
+                    rich_dic["goods"] = img
             if i.type in {"RICH_TEXT_NODE_TYPE_WEB", "RICH_TEXT_NODE_TYPE_BV"}:
                 if "link" not in rich_dic:
                     img_path = path.join(self.src_fold, "link.png")

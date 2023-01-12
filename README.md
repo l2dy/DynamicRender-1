@@ -4,6 +4,14 @@
 
 ## 使用
 
+
+### 安装
+
+```
+pip install dynamicrender
+```
+
+
 ### 1. 格式化动态
 
 ```python

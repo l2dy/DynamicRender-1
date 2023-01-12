@@ -155,9 +155,9 @@ class ConfigInit:
                 "uname": 45,
                 "text": 40,
                 "sub_text": 35,
-                "emoji": 109,
                 "title": 30,
-                "sub_title": 20
+                "sub_title": 20,
+                "emoji": 109
             })
         else:
             self.dy_size = DynSize(**kargs)
