@@ -258,7 +258,7 @@ class DynForwardHeaderRender:
 
 
 class DynFooterRender:
-    def __init__(self,static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
+    def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
         """Initial configuration
 
         Parameters
@@ -280,11 +280,10 @@ class DynFooterRender:
         self.src_path = None
         self.backgroud_img = None
         self.draw = None
-        
 
-    async def run(self,message_id):
+    async def run(self, message_id):
         try:
-            self.src_path = path.join(self.static_path,"Src")
+            self.src_path = path.join(self.static_path, "Src")
             self.backgroud_img = Image.new("RGBA", (1080, 276), self.dyn_color.dyn_white)
             qr_img = await self.make_qrcode(message_id)
             bili_pic = Image.open(path.join(self.src_path, "bilibili.png")).convert("RGBA")
@@ -300,7 +299,6 @@ class DynFooterRender:
         except Exception as e:
             logger.exception("error")
             return None
-
 
     async def make_qrcode(self, message_id: str) -> Image.Image:
         """生成二维码
