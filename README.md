@@ -2,6 +2,10 @@
 
 用于将B站的动态渲染为图片（需要配合适配器将动态转化为特定格式）
 
+## 效果展示
+
+![pic](http://i0.hdslb.com/bfs/new_dyn/360866124fcb684c3047d8b3b76bc1db37815472.png)
+
 ## 使用
 
 
@@ -80,3 +84,4 @@ async def sample2():
 ## 待完善
 
 - [ ] 添加additinal none (750260899099443251)
+
