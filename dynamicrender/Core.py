@@ -2,7 +2,7 @@ from dynamicadaptor.Message import RenderMessage
 from .DynConfig import ConfigInit, Optional, Union
 from PIL import Image
 import asyncio
-from .DynHeader import DynHeaderRender
+from .DynHeader import DynHeaderRender, DynFooterRender
 from .DynText import DynTextRender
 from .DynMajor import DynMajorRender
 from .DynForward import DyForwardRender
@@ -45,5 +45,7 @@ class DyRender(ConfigInit):
             additional_task = DynAdditionalRender(
                 self.static_path, self.dyn_color, self.dyn_font, self.dy_size)
             tasks.append(additional_task.run(message.additional))
+        footer_task = DynFooterRender(self.static_path, self.dyn_color, self.dyn_font, self.dy_size)
+        tasks.append(footer_task.run(message.message_id))
         result = await asyncio.gather(*tasks)
         return await merge_pictures(result)

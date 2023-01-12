@@ -1,18 +1,18 @@
-from typing import Optional, Union, Tuple
-from pydantic import BaseModel
-from os import path, getcwd
-from zipfile import ZipFile
 from loguru import logger
+from os import path, getcwd
+from pydantic import BaseModel
+from typing import Optional, Union, Tuple
+from zipfile import ZipFile
 
 
 class DynColor(BaseModel):
     dyn_blue: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
-    dyn_green:Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
+    dyn_green: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_pink: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_black: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_white: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
     dyn_gray: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
-    dyn_silver_gray: Union[str, Tuple[int, int, int],Tuple[int, int, int, int]]
+    dyn_silver_gray: Union[str, Tuple[int, int, int], Tuple[int, int, int, int]]
 
 
 class DynFontPath(BaseModel):
@@ -155,9 +155,9 @@ class ConfigInit:
                 "uname": 45,
                 "text": 40,
                 "sub_text": 35,
-                "emoji": 109,
                 "title": 30,
-                "sub_title": 20
+                "sub_title": 20,
+                "emoji": 109
             })
         else:
             self.dy_size = DynSize(**kargs)

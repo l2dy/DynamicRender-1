@@ -4,6 +4,14 @@
 
 ## 使用
 
+
+### 安装
+
+```
+pip install dynamicrender
+```
+
+
 ### 1. 格式化动态
 
 ```python
@@ -29,9 +37,10 @@ asyncio.run(sample1())
 
 # 如果是web返回的数据
 
-from dynamicadaptor.DynamicConversion import formate_message
 import asyncio
 import httpx
+from dynamicrender.Core import DyRender
+from dynamicadaptor.DynamicConversion import formate_message 
 
 async def sample2():
     url = "https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id=746530608345251842"
@@ -47,3 +56,8 @@ async def sample2():
 # asyncio.run(sample2())
 
 ```
+
+
+## 待完善
+
+- [ ] 添加additinal none (750260899099443251)

@@ -103,14 +103,14 @@ reference = "url"
 
 [[package]]
 name = "dynamicadaptor"
-version = "0.1.9"
+version = "0.2.7"
 description = ""
 category = "main"
 optional = false
 python-versions = ">=3.8.0,<4.0.0"
 files = [
-    {file = "dynamicadaptor-0.1.9-py3-none-any.whl", hash = "sha256:269b258e964795d10104bc94eb027e10f6527d1fb466bbfeddd49dc2d000a791"},
-    {file = "dynamicadaptor-0.1.9.tar.gz", hash = "sha256:cd616a39d8430768f2317301f3d0c6d79e01be772a405e158d334a3ae5eda37d"},
+    {file = "dynamicadaptor-0.2.7-py3-none-any.whl", hash = "sha256:84c966f1776ffa9993e59e2472aab0455012c70dce42e769fa41362b6b9e26aa"},
+    {file = "dynamicadaptor-0.2.7.tar.gz", hash = "sha256:ef77ae61f746637c32fd3cfa0e683bcf7c7195b0ae2086a8a1e25d3ebba4a574"},
 ]
 
 [package.dependencies]
@@ -135,6 +135,37 @@ files = [
 
 [package.extras]
 dev = ["coverage", "coveralls", "pytest"]
+
+[package.source]
+type = "legacy"
+url = "https://pypi.org/simple"
+reference = "url"
+
+[[package]]
+name = "fonttools"
+version = "4.38.0"
+description = "Tools to manipulate font files"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "fonttools-4.38.0-py3-none-any.whl", hash = "sha256:820466f43c8be8c3009aef8b87e785014133508f0de64ec469e4efb643ae54fb"},
+    {file = "fonttools-4.38.0.zip", hash = "sha256:2bb244009f9bf3fa100fc3ead6aeb99febe5985fa20afbfbaa2f8946c2fbdaf1"},
+]
+
+[package.extras]
+all = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "fs (>=2.2.0,<3)", "lxml (>=4.0,<5)", "lz4 (>=1.7.4.2)", "matplotlib", "munkres", "scipy", "skia-pathops (>=0.5.0)", "sympy", "uharfbuzz (>=0.23.0)", "unicodedata2 (>=14.0.0)", "xattr", "zopfli (>=0.1.4)"]
+graphite = ["lz4 (>=1.7.4.2)"]
+interpolatable = ["munkres", "scipy"]
+lxml = ["lxml (>=4.0,<5)"]
+pathops = ["skia-pathops (>=0.5.0)"]
+plot = ["matplotlib"]
+repacker = ["uharfbuzz (>=0.23.0)"]
+symfont = ["sympy"]
+type1 = ["xattr"]
+ufo = ["fs (>=2.2.0,<3)"]
+unicode = ["unicodedata2 (>=14.0.0)"]
+woff = ["brotli (>=1.0.1)", "brotlicffi (>=0.8.0)", "zopfli (>=0.1.4)"]
 
 [package.source]
 type = "legacy"
@@ -757,4 +788,4 @@ reference = "url"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "c56b5e0c8539920b50c4d08c9ca1ca405eb25df5b4fec6fa34f935153be6c935"
+content-hash = "d0b1aa5747e7db936e16e4124fd8cd6e5282998399a97613fba593034815ab54"

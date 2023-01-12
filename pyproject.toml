@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "dynamicrender"
-version = "0.1.0"
-description = ""
+version = "1.0.0"
+description = "A package that transform bilibili's dynamic data to image"
 authors = ["DMC <lzxder@outlook.com>"]
 readme = "README.md"
 
@@ -12,22 +12,16 @@ pillow = "^9.4.0"
 qrcode = "^7.3.1"
 httpx = "^0.23.2"
 numpy = "^1.24.1"
-dynamicadaptor = "0.1.9"
+dynamicadaptor = "0.2.7"
 emoji = "^2.2.0"
+fonttools = "^4.38.0"
 
 
 [[tool.poetry.source]]
 name = "url"
-url = "https://pypi.org/simple/"
+url = "https://mirrors.bfsu.edu.cn/pypi/web/simple/"
 default = false
 secondary = false
-
-
-[[tool.poetry.source]]
-name = "secondary"
-url = "https://pypi.mirrors.ustc.edu.cn/simple/"
-default = false
-secondary = true
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.1"
