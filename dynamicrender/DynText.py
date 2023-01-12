@@ -6,7 +6,7 @@ from loguru import logger
 from os import path
 from fontTools.ttLib import TTFont
 
-from .Core import Optional
+from typing import Optional
 from .DynConfig import DynColor, DynFontPath, DynSize
 from .Tools import get_pictures, merge_pictures
 

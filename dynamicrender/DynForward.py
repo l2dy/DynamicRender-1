@@ -1,6 +1,6 @@
 from dynamicadaptor.Repost import Forward
-
-from .Core import Image, asyncio
+from PIL import Image
+import  asyncio
 from .DynAdditional import DynAdditionalRender
 from .DynConfig import DynColor, DynFontPath, DynSize
 from .DynHeader import DynForwardHeaderRender
