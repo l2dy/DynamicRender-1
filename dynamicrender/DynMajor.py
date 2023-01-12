@@ -7,7 +7,7 @@ from fontTools.ttLib import TTFont
 from dynamicadaptor.Majors import Major
 from PIL import Image, ImageDraw, ImageFont
 
-from .Core import Image, Optional
+from typing import Optional
 from .DynConfig import DynColor, DynFontPath, DynSize
 from .Tools import get_pictures
 
@@ -119,7 +119,6 @@ class DynMajorDraw:
         img_height = self.items[0].height
         img_width = self.items[0].width
         if img_height / img_width > 4:
-            # img_url = f"{src}@{img_width}w_{img_width}h_!header.webp"
             img_url = f"{src}@{600}w_{800}h_!header.webp"
         else:
             img_url = src
@@ -139,7 +138,6 @@ class DynMajorDraw:
             src = item.src
             img_height = item.height
             img_width = item.width
-            # url_list.append(f"{src}@540w_540h_1c.webp")
             if img_height / img_width > 3:
                 url_list.append(f"{src}@520w_520h_!header.webp")
             else:

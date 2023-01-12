@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 from dynamicadaptor.AddonCard import Additional
 
 
-from .Core import  Optional
+from typing import  Optional
 from .Tools import get_pictures
 from .DynConfig import DynColor, DynFontPath, DynSize
 
