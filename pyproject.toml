@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dynamicrender"
-version = "1.0.5"
+version = "1.0.6"
 description = "A package that transform bilibili's dynamic data to image"
 authors = ["DMC <lzxder@outlook.com>"]
 readme = "README.md"

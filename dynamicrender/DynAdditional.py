@@ -216,8 +216,8 @@ class DynAdditionalReserve:
             self.emoji_font = ImageFont.truetype(self.dyn_font_path.emoji,self.dyn_size.emoji)
             self.key_map = TTFont(self.dyn_font_path.text,fontNumber=0)['cmap'].tables[0].ttFont.getBestCmap().keys()
             await asyncio.gather(
-                self.make_title(dyn_additional.reserve.title),
-                self.make_desc(dyn_additional.reserve.desc1,dyn_additional.reserve.desc2),
+                self.make_title(dyn_additional.reserve),
+                self.make_desc(dyn_additional.reserve.desc1,dyn_additional.reserve.desc2,dyn_additional.reserve.desc3),
                 self.make_badge()
             )
 
@@ -227,32 +227,34 @@ class DynAdditionalReserve:
             logger.exception("error")
             return None
 
-    async def make_title(self,title):
+    async def make_title(self,reserve):
+        title = reserve.title
         emoji = await self.get_emoji(title)
         offset = 0
-        position = 75
+        x = 75
+        y = 40 if reserve.desc3 is not None else 70
         total = len(title) - 1
         while offset <= total:
             if offset in emoji:
                 emoji_img = emoji[offset]["emoji"]
-                self.background_img.paste(emoji_img, (int(position), 70), emoji_img)
-                position += (emoji_img.size[0])
+                self.background_img.paste(emoji_img, (int(x), y), emoji_img)
+                x += (emoji_img.size[0])
                 offset = emoji[offset]["match_end"]
-                if position >= 810:
-                    self.draw.text((int(position),70),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
+                if x >= 810:
+                    self.draw.text((int(x),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
                     break
             else:
                 text = title[offset]
                 if ord(text) not in self.key_map:
-                    self.draw.text((int(position),70),text,fill=self.dyn_color.dyn_black,font=self.extra_font)
+                    self.draw.text((int(x),y),text,fill=self.dyn_color.dyn_black,font=self.extra_font)
                     next_offset = self.extra_font.getbbox(text)[2]
                 else:
-                    self.draw.text((int(position),70),text,fill=self.dyn_color.dyn_black,font=self.title_font)
+                    self.draw.text((int(x),y),text,fill=self.dyn_color.dyn_black,font=self.title_font)
                     next_offset = self.title_font.getbbox(text)[2]
-                position += next_offset
+                x += next_offset
                 offset += 1
-                if position >= 810:
-                    self.draw.text((int(position),70),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
+                if x >= 810:
+                    self.draw.text((int(x),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
                     break
 
     async def get_emoji(self,title):
@@ -273,9 +275,20 @@ class DynAdditionalReserve:
             temp[i["match_start"]]["emoji"] = emoji_dic[temp[i["match_start"]]["emoji"]]
         return temp
 
-    async def make_desc(self,desc1,desc2):
+    async def make_desc(self,desc1,desc2,desc3):
         desc = f"{desc1.text} · {desc2.text}"
-        self.draw.text((75,140),desc,self.dyn_color.dyn_silver_gray,self.sub_title_font)
+        if desc3 is None:
+            self.draw.text((75,140),desc,self.dyn_color.dyn_silver_gray,self.sub_title_font)
+        else:
+            self.draw.text((75,100),desc,self.dyn_color.dyn_silver_gray,self.sub_title_font)
+            desc3_text = desc3.text
+            x = 75
+            for i in desc3_text:
+                self.draw.text((x,150),i,self.dyn_color.dyn_blue,self.sub_title_font)
+                x += self.sub_title_font.getbbox(i)[2]
+                if x >810:
+                    self.draw.text((x,150),"...",self.dyn_color.dyn_blue,self.sub_title_font)
+                    break
 
     async def make_badge(self):
         badge_text = "预约"
