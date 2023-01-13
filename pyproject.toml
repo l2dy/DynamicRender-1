@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dynamicrender"
-version = "1.0.6"
+version = "1.0.7"
 description = "A package that transform bilibili's dynamic data to image"
 authors = ["DMC <lzxder@outlook.com>"]
 readme = "README.md"
@@ -12,7 +12,7 @@ pillow = "^9.4.0"
 qrcode = "^7.3.1"
 httpx = "^0.23.2"
 numpy = "^1.24.1"
-dynamicadaptor = "0.2.7"
+dynamicadaptor = "0.2.8"
 emoji = "^2.2.0"
 fonttools = "^4.38.0"
 
