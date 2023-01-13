@@ -80,7 +80,7 @@ class DynMajorRender:
                 return await DynMajorLive(self.static_path, self.dyn_color, self.dyn_font_path, self.dyn_size).run(
                     dyn_maojor, dyn_type)
             else:
-                logger.error("Unknown major type")
+                logger.warning(f"{major_type} is not supported")
                 return None
         except Exception as e:
             logger.exception(e)
