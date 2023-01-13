@@ -252,9 +252,10 @@ class DynMajorArchive:
         else:
             badge_text = "投稿视频"
             bg_color = self.dyn_color.dyn_pink
-        badge_size = font.getsize(duration)
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 20)
+        badge_size = font.getbbox(badge_text)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 20)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
+        print(badge_pic.size)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 5), badge_text, self.dyn_color.dyn_white, font=font)
         self.background_img.paste(badge_pic, (905, 50), badge_pic)
@@ -1025,7 +1026,7 @@ class DynMajorLive:
         if badge.text:
             badge_text = badge.text
         else:
-            badge_text = "直播"
+            badge_text = " 直播 "
         bg_color = self.dyn_color.dyn_pink
         badge_size = font.getsize(badge_text)
         badge_pic_size = (badge_size[0] + 20, badge_size[1] + 20)
