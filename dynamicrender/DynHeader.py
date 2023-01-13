@@ -191,6 +191,7 @@ class DynForwardHeaderRender:
         self.dyn_size: DynSize = dyn_size
         self.backgroud = None
         self.draw = None
+        self.none_type = False
 
     async def run(self, forward_dyn_head: Head) -> Image.Image:
         """Render the forward head of the dynamic into image
@@ -206,32 +207,38 @@ class DynForwardHeaderRender:
             Rendered image
 
         """
+        try:
 
-        self.cache_path = path.join(self.static_path, "Cache")
-        self.backgroud = Image.new(
-            "RGBA", (1080, 100), self.dyn_color.dyn_gray)
-        self.draw = ImageDraw.Draw(self.backgroud)
-
-        await asyncio.gather(self.draw_face(forward_dyn_head), self.draw_name(forward_dyn_head))
-        return self.backgroud
+            self.cache_path = path.join(self.static_path, "Cache")
+            self.backgroud = Image.new("RGBA", (1080, 100), self.dyn_color.dyn_gray)
+            self.draw = ImageDraw.Draw(self.backgroud)
+            await asyncio.gather(self.draw_face(forward_dyn_head), self.draw_name(forward_dyn_head))
+            if self.none_type:
+                return None
+            return self.backgroud
+        except Exception as e:
+            return None
 
     async def draw_face(self, forward_dyn_head: Head):
-
         if forward_dyn_head.face:
             face = await self.get_face(forward_dyn_head)
             if face:
                 face = await circle_picture(face, 80)
-                self.backgroud.paste(face, (40, 10), face)
+                self.backgroud.paste(face, (40, 10), face)            
+
 
     async def draw_name(self, forward_dyn_head: Head):
         uname = forward_dyn_head.name
-        font = ImageFont.truetype(
-            font=self.dyn_font_path.text, size=self.dyn_size.uname)
-        if forward_dyn_head.face:
-            box = (140, 20)
+        if uname:
+            font = ImageFont.truetype(
+                font=self.dyn_font_path.text, size=self.dyn_size.uname)
+            if forward_dyn_head.face:
+                box = (140, 20)
+            else:
+                box = (35, 20)
+            self.draw.text(box, uname, fill=self.dyn_color.dyn_blue, font=font)
         else:
-            box = (35, 20)
-        self.draw.text(box, uname, fill=self.dyn_color.dyn_blue, font=font)
+            self.none_type = True
 
     async def get_face(self, forward_dyn_head: Head):
         img_name = f"{forward_dyn_head.mid}.webp"
