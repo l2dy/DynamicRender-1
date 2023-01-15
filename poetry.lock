@@ -103,24 +103,19 @@ reference = "url"
 
 [[package]]
 name = "dynamicadaptor"
-version = "0.2.8"
+version = "0.2.9"
 description = ""
 category = "main"
 optional = false
 python-versions = ">=3.8.0,<4.0.0"
 files = [
-    {file = "dynamicadaptor-0.2.8-py3-none-any.whl", hash = "sha256:5e6be529fcb7fa5f8c57c5790e6e74813c41568083959febedaf0c78fb11300e"},
-    {file = "dynamicadaptor-0.2.8.tar.gz", hash = "sha256:66dcb2edea71cce01883a47132787e4e2fdf8a51eb06e5d5849495a7802b3e18"},
+    {file = "dynamicadaptor-0.2.9-py3-none-any.whl", hash = "sha256:1283e006a4ae03d8bbf4efc82850730c136eddc9f6bbcfe6b12e155b2d525e37"},
+    {file = "dynamicadaptor-0.2.9.tar.gz", hash = "sha256:c85319876c23734ed5c942a11b624747275e93ca3a2d69e63d55f62ccbf9e2f9"},
 ]
 
 [package.dependencies]
 loguru = ">=0.6.0,<0.7.0"
 pydantic = ">=1.10.4,<2.0.0"
-
-[package.source]
-type = "legacy"
-url = "https://mirrors.bfsu.edu.cn/pypi/web/simple"
-reference = "url"
 
 [[package]]
 name = "emoji"
@@ -788,4 +783,4 @@ reference = "url"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7ffa8f2b21bb98a9821d432799d1e3beaf72089a392f719764a76f5f9855f6a6"
+content-hash = "e3ba2e42cbcc6cfaa1ae7483c61b409ae17eb36cb9953cef7a460e1f3fc4d0d0"
