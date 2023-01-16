@@ -191,6 +191,7 @@ class DynAdditionalReserve:
         dyn_size : DynSize
             size information in the configuration
         """
+
         self.static_path: str = static_path
         self.dyn_color: DynColor = dyn_color
         self.dyn_font_path: DynFontPath = dyn_font_path
