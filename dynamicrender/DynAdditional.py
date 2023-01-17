@@ -716,7 +716,10 @@ class DynAdditionalUpworkLottery:
                 break
 
     async def make_badge(self,button):
-        badge_text = button.jump_style.text
+        if button.jump_style:
+            badge_text = button.jump_style.text
+        else:
+            badge_text = "已结束"
         badge_color = self.dyn_color.dyn_blue
         btn_img = Image.new("RGBA", (170, 75), badge_color)
         text_size = self.title_font.getbbox(badge_text)
