@@ -101,13 +101,14 @@ class DynTextRender:
         emoji_name_list = []
         rich_list = []
         for i in dyn_text.rich_text_nodes:
-            if i.type in {"RICH_TEXT_NODE_TYPE_VOTE", "RICH_TEXT_NODE_TYPE_LOTTERY", "RICH_TEXT_NODE_TYPE_GOODS",
-                          "RICH_TEXT_NODE_TYPE_WEB", "RICH_TEXT_NODE_TYPE_BV", "RICH_TEXT_NODE_TYPE_CV"}:
-                rich_list.append(i)
             if i.type == "RICH_TEXT_NODE_TYPE_EMOJI":
                 if i.text not in emoji_name_list:
                     emoji_name_list.append(i.text)
                     emoji_list.append(i.emoji.icon_url)
+            elif i.type != "RICH_TEXT_NODE_TYPE_TEXT":
+            # elif i.type in {"RICH_TEXT_NODE_TYPE_VOTE", "RICH_TEXT_NODE_TYPE_LOTTERY", "RICH_TEXT_NODE_TYPE_GOODS",
+            #               "RICH_TEXT_NODE_TYPE_WEB", "RICH_TEXT_NODE_TYPE_BV", "RICH_TEXT_NODE_TYPE_CV","RICH_TEXT_NODE_TYPE_CV","RICH_TEXT_NODE_TYPE_MAIL"}:
+                rich_list.append(i)
         result = await gather(self.get_emoji(emoji_list, emoji_name_list), self.get_rich_pic(rich_list))
         await self.draw_text(result[1], dyn_text)
 
@@ -163,26 +164,31 @@ class DynTextRender:
                     img_path = path.join(self.src_fold, "vote.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
                     rich_dic["vote"] = img
-            if i.type == "RICH_TEXT_NODE_TYPE_LOTTERY":
+            elif i.type == "RICH_TEXT_NODE_TYPE_LOTTERY":
                 if "lottery" not in rich_dic:
                     img_path = path.join(self.src_fold, "lottery.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
                     rich_dic["lottery"] = img
-            if i.type == "RICH_TEXT_NODE_TYPE_GOODS":
+            elif i.type == "RICH_TEXT_NODE_TYPE_GOODS":
                 if "goods" not in rich_dic:
                     img_path = path.join(self.src_fold, "taobao.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
                     rich_dic["goods"] = img
-            if i.type in {"RICH_TEXT_NODE_TYPE_WEB", "RICH_TEXT_NODE_TYPE_BV"}:
+            elif i.type in {"RICH_TEXT_NODE_TYPE_WEB", "RICH_TEXT_NODE_TYPE_BV"}:
                 if "link" not in rich_dic:
                     img_path = path.join(self.src_fold, "link.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
                     rich_dic["link"] = img
-            if i.type == "RICH_TEXT_NODE_TYPE_CV":
+            elif i.type == "RICH_TEXT_NODE_TYPE_CV":
                 if "cv" not in rich_dic:
                     img_path = path.join(self.src_fold, "article.png")
                     img = Image.open(img_path).resize((rich_size, rich_size))
                     rich_dic["cv"] = img
+            else:
+                if "link" not in rich_dic:
+                    img_path = path.join(self.src_fold, "link.png")
+                    img = Image.open(img_path).resize((rich_size, rich_size))
+                    rich_dic["link"] = img
         return rich_dic
 
     async def draw_text(self, rich_list: list, dyn_text: Text):
