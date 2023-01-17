@@ -4,7 +4,7 @@
 
 ## 效果展示
 
-![pic](http://i0.hdslb.com/bfs/new_dyn/360866124fcb684c3047d8b3b76bc1db37815472.png)
+![pic](http://i0.hdslb.com/bfs/new_dyn/1e64ba252c88fba4fff289415da26a7937815472.png)
 
 ## 使用
 
