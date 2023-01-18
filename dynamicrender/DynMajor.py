@@ -457,7 +457,7 @@ class DynMajorArticle:
 
             self.draw = ImageDraw.ImageDraw(self.background_img)
             self.draw.rectangle(((35, 20), (1045, 620)), fill=self.inner_color, outline='#e5e9ef', width=2)
-            cover = dyn_maojor.article.cover
+            cover = dyn_maojor.article.covers
             self.offset = True if len(cover) == 1 else False
             tasks = [self.make_cover(cover),
                      self.make_title(dyn_maojor.article.title),
