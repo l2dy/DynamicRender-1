@@ -230,7 +230,7 @@ class DynAdditionalReserve:
 
     async def make_title(self,reserve):
         title = reserve.title
-        emoji = await self.get_emoji(title)
+        emoji = await self.get_emoji(title,self.dyn_size.text)
         offset = 0
         x = 75
         y = 40 if reserve.desc3 is not None else 70
@@ -258,7 +258,7 @@ class DynAdditionalReserve:
                     self.draw.text((int(x),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
                     break
 
-    async def get_emoji(self,title):
+    async def get_emoji(self,title,scale_size):
         result = emoji.emoji_list(title)
         duplicate_removal_result = {i["emoji"] for i in result}
         emoji_dic = {}
@@ -268,7 +268,7 @@ class DynAdditionalReserve:
                 "RGBA", (emoji_origin_text[2], emoji_origin_text[3]), self.inner_color)
             draw = ImageDraw.Draw(emoji_img)
             draw.text((0, 0), i, embedded_color=True, font=self.emoji_font)
-            emoji_img = emoji_img.resize((self.dyn_size.text, self.dyn_size.text))
+            emoji_img = emoji_img.resize((scale_size, scale_size))
             emoji_dic[i] = emoji_img
         temp = {}
         for i in result:
@@ -284,13 +284,32 @@ class DynAdditionalReserve:
             self.draw.text((75,100),desc,self.dyn_color.dyn_silver_gray,self.sub_title_font)
             desc3_text = desc3.text
             x = 75
-            for i in desc3_text:
-                self.draw.text((x,150),i,self.dyn_color.dyn_blue,self.sub_title_font)
-                x += self.sub_title_font.getbbox(i)[2]
-                if x >810:
-                    self.draw.text((x,150),"...",self.dyn_color.dyn_blue,self.sub_title_font)
-                    break
-
+            emoji = await self.get_emoji(desc3_text,self.dyn_size.title)
+            x = 75
+            offset = 0
+            total = len(desc3_text) - 1
+            while offset <= total:
+                if offset in emoji:
+                    emoji_img = emoji[offset]["emoji"]
+                    self.background_img.paste(emoji_img, (int(x), 155), emoji_img)
+                    x += (emoji_img.size[0])
+                    offset = emoji[offset]["match_end"]
+                    if x >= 810:
+                        self.draw.text((int(x),150),"...",fill=self.dyn_color.dyn_black,font=self.sub_title_font)
+                        break
+                else:
+                    text = desc3_text[offset]
+                    if ord(text) not in self.key_map:
+                        self.draw.text((int(x),150),text,fill=self.dyn_color.dyn_blue,font=self.sub_title_font)
+                        next_offset = self.extra_font.getbbox(text)[2]
+                    else:
+                        self.draw.text((int(x),150),text,fill=self.dyn_color.dyn_blue,font=self.sub_title_font)
+                        next_offset = self.title_font.getbbox(text)[2]
+                    x += next_offset
+                    offset += 1
+                    if x >= 810:
+                        self.draw.text((int(x),150),"...",fill=self.dyn_color.dyn_blue,font=self.sub_title_font)
+                        break
     async def make_badge(self):
         badge_text = "预约"
         badge_color = self.dyn_color.dyn_blue
