@@ -4,7 +4,7 @@
 
 ## 效果展示
 
-![image][sample]
+![效果图][sample]
 
 ## 使用
 
