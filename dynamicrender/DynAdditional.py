@@ -241,7 +241,7 @@ class DynAdditionalReserve:
                 self.background_img.paste(emoji_img, (int(x), y), emoji_img)
                 x += (emoji_img.size[0])
                 offset = emoji[offset]["match_end"]
-                if x >= 810:
+                if x >= 740:
                     self.draw.text((int(x),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
                     break
             else:
@@ -254,7 +254,7 @@ class DynAdditionalReserve:
                     next_offset = self.title_font.getbbox(text)[2]
                 x += next_offset
                 offset += 1
-                if x >= 810:
+                if x >= 740:
                     self.draw.text((int(x),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
                     break
 

@@ -4,3 +4,5 @@ tests
 mt
 dynamicrender/__pycache__
 Static
+.github
+.git
