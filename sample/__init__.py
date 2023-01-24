@@ -16,7 +16,7 @@ async def grpc_test():
         img.show()
 
 async def web_test():
-    dyn_id = "753550783931219987"
+    dyn_id = "754580029916053539"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer":f"https://t.bilibili.com/{dyn_id}"
@@ -24,10 +24,9 @@ async def web_test():
     message_json = httpx.get(url,headers=headers).json()
     message_formate = await formate_message("web",message_json["data"]["item"])
     img  = await DyRender().dyn_render(message_formate)
-    img.show()
+    img.save("1.png")
 
 
-    # print(result)
 
 
 

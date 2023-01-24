@@ -270,7 +270,7 @@ class DynMajorArchive:
                 self.background_img.paste(emoji_img, (int(position), 606), emoji_img)
                 position += (emoji_img.size[0])
                 offset = emoji[offset]["match_end"]
-                if position >= 1020:
+                if position >= 950:
                     self.draw.text((int(position), 600), "...", fill=self.dyn_color.dyn_black, font=self.text_font)
                     break
             else:
@@ -283,7 +283,7 @@ class DynMajorArchive:
                     next_offset = self.text_font.getbbox(text)[2]
                 position += next_offset
                 offset += 1
-                if position >= 1020:
+                if position >= 950:
                     self.draw.text((int(position), 600), "...", fill=self.dyn_color.dyn_black, font=self.text_font)
                     break
 

@@ -1,6 +1,7 @@
 tests
 .vscode
 .idea
+.git
 mt
 dynamicrender/__pycache__
 Static

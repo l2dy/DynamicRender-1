@@ -479,7 +479,7 @@ class DynAdditionalUgc:
             next_offset = bbox[2]
             position += next_offset
             temp = position
-            if position >= 1000:
+            if position >= 950:
                 position = 430
                 y += int(1.3 * bbox[3])
                 if y>130:
@@ -501,7 +501,7 @@ class DynAdditionalUgc:
         bk_pic = Image.new("RGBA", bk_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(bk_pic)
         draw.text((10, 3),duration,self.dyn_color.dyn_white,font=self.sub_title_font)
-        self.background_img.paste(bk_pic,(260, 170),bk_pic)
+        self.background_img.paste(bk_pic,(290, 190),bk_pic)
 
 class DynAdditionalVote:
     def __init__(self, static_path: str, dyn_color: DynColor, dyn_font_path: DynFontPath, dyn_size: DynSize) -> None:
@@ -609,6 +609,8 @@ class DynAdditionalVote:
         return temp
     
     async def make_join_num(self,join_num):
+        if not join_num:
+            join_num = 0
         text = f"{join_num}参与"
         self.draw.text((280,160),text,fill=self.dyn_color.dyn_silver_gray,font=self.sub_title_font)
     
