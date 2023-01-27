@@ -103,14 +103,14 @@ reference = "url"
 
 [[package]]
 name = "dynamicadaptor"
-version = "0.3.3"
+version = "0.3.4"
 description = ""
 category = "main"
 optional = false
 python-versions = ">=3.8.0,<4.0.0"
 files = [
-    {file = "dynamicadaptor-0.3.3-py3-none-any.whl", hash = "sha256:6086d3863675abcbf062e11cee0da1a13b86b9b03584096c6f85c7bba5a1404c"},
-    {file = "dynamicadaptor-0.3.3.tar.gz", hash = "sha256:e8d990bb6869ce66a5d77e863f6e1724d1473ed4dd4fb13438e7f8ff41509d16"},
+    {file = "dynamicadaptor-0.3.4-py3-none-any.whl", hash = "sha256:067f04dd0c5a1cd2ba371c2f4b44509d6a1d8420131c785f9c1eef8046d638e4"},
+    {file = "dynamicadaptor-0.3.4.tar.gz", hash = "sha256:021c3fac58e859dbe77d2aa4131df879948cc7bb1d7a5cb587612ae5d5a84c18"},
 ]
 
 [package.dependencies]
@@ -795,4 +795,4 @@ reference = "url"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "067e0b7ff7ed7a2f45c19c59cbb2ad8541b0babb1a14ba11e773b9d123aea4b3"
+content-hash = "66e987dd4a1006212ebc7826940e43c67a2ead2a41e40ece32c2266669ba562e"
