@@ -13,9 +13,10 @@ from google.protobuf.json_format import MessageToJson
 
 
 async def grpc_test():
-    message = await get_dy_detail("756200529630068741")
+    message = await get_dy_detail("758393033134702592")
     if message:
         message_str = MessageToJson(message[0])
+        
         message_json = json.loads(message_str)
         message_formate = await formate_message("grpc", message_json)
         img = await DyRender().dyn_render(message_formate)
@@ -24,7 +25,7 @@ async def grpc_test():
 
 
 async def web_test():
-    dyn_id = "755703296984875092"
+    dyn_id = "758393033134702592"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer": f"https://t.bilibili.com/{dyn_id}"
@@ -36,8 +37,8 @@ async def web_test():
 
 
 if __name__ == "__main__":
+    # asyncio.run(grpc_test())
+    asyncio.run(web_test())
     
-    asyncio.run(grpc_test())
-    # asyncio.run(web_test())
     
     
