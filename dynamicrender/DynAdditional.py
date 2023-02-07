@@ -445,6 +445,7 @@ class DynAdditionalUgc:
         self.background_color = None
         self.inner_color = None
         self.draw = None
+        self.key_map =None
     
     async def run(self, dyn_additional: Additional, dyn_type) -> Optional[Image.Image]:
         try:
@@ -458,6 +459,7 @@ class DynAdditionalUgc:
             self.sub_title_font = ImageFont.truetype(self.dyn_font_path.text,self.dyn_size.title)
             self.extra_font = ImageFont.truetype(self.dyn_font_path.extra_text,self.dyn_size.sub_text)
             self.emoji_font = ImageFont.truetype(self.dyn_font_path.emoji,self.dyn_size.emoji)
+            self.key_map = TTFont(self.dyn_font_path.text,fontNumber=0)['cmap'].tables[0].ttFont.getBestCmap().keys()
             await asyncio.gather(
                 self.make_cover(dyn_additional.ugc.cover),
                 self.make_title(dyn_additional.ugc.title),
@@ -471,20 +473,72 @@ class DynAdditionalUgc:
             return None
     
     async def make_title(self,title):
+        # position = 430
+        # y = 65
+        # for text in title:
+        #     self.draw.text((position,y),text,fill=self.dyn_color.dyn_black,font=self.title_font)
+        #     bbox = self.title_font.getbbox(text)
+        #     next_offset = bbox[2]
+        #     position += next_offset
+        #     temp = position
+        #     if position >= 950:
+        #         position = 430
+        #         y += int(1.3 * bbox[3])
+        #         if y>130:
+        #             self.draw.text((temp,y-int(1.5 * bbox[3])),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
+        #             break
+        emoji = await self.get_emoji(title)
+        offset = 0
         position = 430
         y = 65
-        for text in title:
-            self.draw.text((position,y),text,fill=self.dyn_color.dyn_black,font=self.title_font)
-            bbox = self.title_font.getbbox(text)
-            next_offset = bbox[2]
-            position += next_offset
-            temp = position
-            if position >= 950:
-                position = 430
-                y += int(1.3 * bbox[3])
-                if y>130:
-                    self.draw.text((temp,y-int(1.5 * bbox[3])),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
-                    break
+        total = len(title) - 1
+        while offset <= total:
+            if offset in emoji:
+                emoji_img = emoji[offset]["emoji"]
+                self.background_img.paste(emoji_img, (int(position), y), emoji_img)
+                position += (emoji_img.size[0])
+                offset = emoji[offset]["match_end"]
+                if position >= 950:
+                    position = 430
+                    y += int(1.3 * emoji_img.size[1])
+                    if y>130:
+                        self.draw.text((int(position),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
+                        break
+            else:
+                text = title[offset]
+                t_box = self.extra_font.getbbox(text)
+                if ord(text) not in self.key_map:
+                    self.draw.text((int(position),y),text,fill=self.dyn_color.dyn_black,font=self.extra_font)
+                    next_offset = t_box[2]
+                else:
+                    self.draw.text((int(position),y),text,fill=self.dyn_color.dyn_black,font=self.title_font)
+                    next_offset = t_box[2]
+                position += next_offset
+                offset += 1
+                if position >= 950:
+                    position = 430
+                    y += int(1.3 * t_box[3])
+                    if y>130:
+                        self.draw.text((int(position),y),"...",fill=self.dyn_color.dyn_black,font=self.title_font)
+                        break
+
+    async def get_emoji(self,title):
+        result = emoji.emoji_list(title)
+        duplicate_removal_result = {i["emoji"] for i in result}
+        emoji_dic = {}
+        for i in duplicate_removal_result:
+            emoji_origin_text = self.emoji_font.getbbox(i)
+            emoji_img = Image.new(
+                "RGBA", (emoji_origin_text[2], emoji_origin_text[3]), self.inner_color)
+            draw = ImageDraw.Draw(emoji_img)
+            draw.text((0, 0), i, embedded_color=True, font=self.emoji_font)
+            emoji_img = emoji_img.resize((self.dyn_size.text, self.dyn_size.text))
+            emoji_dic[i] = emoji_img
+        temp = {}
+        for i in result:
+            temp[i["match_start"]] = i
+            temp[i["match_start"]]["emoji"] = emoji_dic[temp[i["match_start"]]["emoji"]]
+        return temp
 
     async def make_cover(self,cover):
         cover_url = f"{cover}@340w_195h_1c.webp"
