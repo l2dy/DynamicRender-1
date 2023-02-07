@@ -25,7 +25,7 @@ async def grpc_test():
 
 
 async def web_test():
-    dyn_id = "758393033134702592"
+    dyn_id = "759844594645991443"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer": f"https://t.bilibili.com/{dyn_id}"
