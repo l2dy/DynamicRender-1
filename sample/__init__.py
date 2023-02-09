@@ -13,25 +13,26 @@ from google.protobuf.json_format import MessageToJson
 
 
 async def grpc_test():
-    message = await get_dy_detail("758393033134702592")
+    message = await get_dy_detail("760523624703590658")
     if message:
         message_str = MessageToJson(message[0])
-        
         message_json = json.loads(message_str)
         message_formate = await formate_message("grpc", message_json)
+        # print(message_formate.text)
         img = await DyRender().dyn_render(message_formate)
         img.save("1.png")
         # img.show()
 
 
 async def web_test():
-    dyn_id = "759844594645991443"
+    dyn_id = "760523624703590658"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer": f"https://t.bilibili.com/{dyn_id}"
     }
     message_json = httpx.get(url, headers=headers).json()
     message_formate = await formate_message("web", message_json["data"]["item"])
+    # print(message_formate)
     img = await DyRender().dyn_render(message_formate)
     img.save("1.png")
 

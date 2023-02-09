@@ -76,7 +76,8 @@ class DynTextRender:
         try:
             if dyn_text.topic is not None:
                 tasks.append(self.make_topic(dyn_text.topic))
-            tasks.append(self.make_text_img(dyn_text))
+            if dyn_text.text:
+                tasks.append(self.make_text_img(dyn_text))
             await gather(*tasks)
             return await merge_pictures([i for i in self.pic_list if i is not None])
         except Exception as e:
