@@ -32,13 +32,13 @@ async def web_test():
     }
     message_json = httpx.get(url, headers=headers).json()
     message_formate = await formate_message("web", message_json["data"]["item"])
-    print(message_formate)
+    # print(message_formate)
     img = await DyRender().dyn_render(message_formate)
     img.save("1.png")
 
 
 if __name__ == "__main__":
-    asyncio.run(grpc_test())
+    # asyncio.run(grpc_test())
     asyncio.run(web_test())
     
     
