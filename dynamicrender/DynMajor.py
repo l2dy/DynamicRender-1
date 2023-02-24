@@ -239,7 +239,8 @@ class DynMajorArchive:
 
     async def make_cover(self, cover: str, duration: str, badge):
         cover = await get_pictures(cover, (1010, 570))
-        self.background_img.paste(cover, (35, 25), cover)
+        if cover:
+            self.background_img.paste(cover, (35, 25), cover)
         play_icon = Image.open(path.join(self.src_path, "tv.png")).convert("RGBA").resize((130, 130))
         font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
 
