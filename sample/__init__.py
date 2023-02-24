@@ -25,7 +25,7 @@ async def grpc_test():
 
 
 async def web_test():
-    dyn_id = "760523624703590658"
+    dyn_id = "766262229264760904"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer": f"https://t.bilibili.com/{dyn_id}"
@@ -38,8 +38,8 @@ async def web_test():
 
 
 if __name__ == "__main__":
-    # asyncio.run(grpc_test())
-    asyncio.run(web_test())
+    asyncio.run(grpc_test())
+    # asyncio.run(web_test())
     
     
     
