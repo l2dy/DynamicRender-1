@@ -13,7 +13,7 @@ from google.protobuf.json_format import MessageToJson
 
 
 async def grpc_test():
-    message = await get_dy_detail("760523624703590658")
+    message = await get_dy_detail("793678186661543957")
     if message:
         message_str = MessageToJson(message[0])
         message_json = json.loads(message_str)
@@ -25,7 +25,7 @@ async def grpc_test():
 
 
 async def web_test():
-    dyn_id = "766262229264760904"
+    dyn_id = "793678186661543957"
     url = f"https://api.bilibili.com/x/polymer/web-dynamic/v1/detail?timezone_offset=-480&id={dyn_id}&features=itemOpusStyle"
     headers = {
         "referer": f"https://t.bilibili.com/{dyn_id}"

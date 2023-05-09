@@ -211,7 +211,7 @@ class DynTextRender:
 
     async def draw_pain_text(self, dyn_type: str, dyn_detail):
         dyn_detail = dyn_detail.translate(str.maketrans(
-            {'\r': '', chr(65039): '', chr(65038): '', chr(8205): ''}))
+            {'\r': '', chr(65039): '', chr(65038): '', chr(8205): '',chr(65279):''}))
         if dyn_type in {"RICH_TEXT_NODE_TYPE_AT", "RICH_TEXT_NODE_TYPE_TOPIC"}:
             for i in dyn_detail:
                 self.draw.text((self.offset, 0), i,
