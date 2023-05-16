@@ -814,7 +814,11 @@ reference = "url"
 lock-version = "2.0"
 python-versions = "^3.8"
 <<<<<<< HEAD
+<<<<<<< HEAD
 content-hash = "e2c2729be22105b20dd678751a6afc9540cb7feaa636b39dc6c9a61cbd0233dc"
 =======
 content-hash = "359445d8d977cff4b7369e81cb30c9bbf831f94adfe4cc5958ff857ce3c25119"
+>>>>>>> feature
+=======
+content-hash = "e2c2729be22105b20dd678751a6afc9540cb7feaa636b39dc6c9a61cbd0233dc"
 >>>>>>> feature

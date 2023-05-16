@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dynamicrender"
-version = "1.2.2"
+version = "1.2.4"
 description = "A package that transform bilibili's dynamic data to image"
 authors = ["DMC <lzxder@outlook.com>"]
 readme = "README.md"
@@ -20,8 +20,15 @@ fonttools = "^4.38.0"
 [[tool.poetry.source]]
 name = "url"
 url = "https://pypi.org/simple"
-default = false
+default = true
 secondary = false
+
+
+[[tool.poetry.source]]
+name = "qh"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = false
+secondary = true
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.1"
