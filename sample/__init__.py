@@ -14,7 +14,7 @@ from google.protobuf.json_format import MessageToJson
 
 async def grpc_test():
 
-    message = await get_dy_detail("795938194175557665")
+    message = await get_dy_detail("793678186661543957")
 
     if message:
         message_str = MessageToJson(message[0])
