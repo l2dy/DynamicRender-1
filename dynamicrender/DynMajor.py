@@ -244,8 +244,8 @@ class DynMajorArchive:
         play_icon = Image.open(path.join(self.src_path, "tv.png")).convert("RGBA").resize((130, 130))
         font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
 
-        duration_size = font.getsize(duration)
-        duration_pic_size = (duration_size[0] + 20, duration_size[1] + 20)
+        duration_size = font.getbbox(duration)
+        duration_pic_size = (duration_size[2] + 20, duration_size[3] + 20)
         duration_pic = Image.new("RGBA", duration_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(duration_pic)
         draw.text((10, 5), duration, fill=self.dyn_color.dyn_white, font=font)
@@ -368,15 +368,15 @@ class DynMajorLiveRcmd:
         self.background_img.paste(cover, (35, 25), cover)
         font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
 
-        watch_show_size = font.getsize(watch_show)
-        watch_show_pic_size = (watch_show_size[0] + 20, watch_show_size[1] + 10)
+        watch_show_size = font.getbbox(watch_show)
+        watch_show_pic_size = (watch_show_size[2] + 20, watch_show_size[3] + 10)
         watch_show_pic = Image.new("RGBA", watch_show_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(watch_show_pic)
         draw.text((10, 3), watch_show, fill=self.dyn_color.dyn_white, font=font)
         badge_text = badge
         bg_color = self.dyn_color.dyn_pink
-        badge_size = font.getsize(badge)
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 10)
+        badge_size = font.getbbox(badge)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 10)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 3), badge_text, self.dyn_color.dyn_white, font=font)
@@ -594,8 +594,8 @@ class DynMajorCommon:
             text_color = dyn_maojor.common.badge.color
             bg_color = dyn_maojor.common.badge.bg_color
             font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
-            badge_size = font.getsize(text)
-            badge_pic_size = (badge_size[0] + 20, badge_size[1] + 10)
+            badge_size = font.getbbox(text)
+            badge_pic_size = (badge_size[2] + 20, badge_size[3] + 10)
             badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
             draw = ImageDraw.Draw(badge_pic)
             draw.text((10, 3), text, text_color, font=font)
@@ -747,15 +747,15 @@ class DynMajorPgc:
         else:
             badge_text = "投稿视频"
             bg_color = self.dyn_color.dyn_pink
-        badge_size = font.getsize(badge_text)
+        badge_size = font.getbbox(badge_text)
         
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 10)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 10)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 3), badge_text, self.dyn_color.dyn_white, font=font)
         self.background_img.paste(badge_pic, (955, 50), badge_pic)
-        play_size = font.getsize(play)
-        play_pic_size = (play_size[0] + 20, badge_size[1] + 10)
+        play_size = font.getbbox(play)
+        play_pic_size = (play_size[2] + 20, badge_size[3] + 10)
         play_pic = Image.new("RGBA", play_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(play_pic)
         draw.text((10, 3), play, fill=self.dyn_color.dyn_white, font=font)
@@ -840,8 +840,8 @@ class DynMajorMediaList:
         font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
         badge_text = badge.text
         bg_color = badge.bg_color
-        badge_size = font.getsize(badge_text)
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 10)
+        badge_size = font.getbbox(badge_text)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 10)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 3), badge_text, self.dyn_color.dyn_white, font=font)
@@ -912,14 +912,14 @@ class DynMajorCourses:
         else:
             badge_text = "投稿视频"
             bg_color = self.dyn_color.dyn_pink
-        badge_size = font.getsize(badge_text)
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 10)
+        badge_size = font.getbbox(badge_text)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 10)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 3), badge_text, self.dyn_color.dyn_white, font=font)
         self.background_img.paste(badge_pic, (925, 50), badge_pic)
-        sub_title_size = font.getsize(sub_title)
-        sub_title_pic_size = (sub_title_size[0] + 20, sub_title_size[1] + 10)
+        sub_title_size = font.getbbox(sub_title)
+        sub_title_pic_size = (sub_title_size[2] + 20, sub_title_size[3] + 10)
         sub_title_pic = Image.new("RGBA", sub_title_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(sub_title_pic)
         draw.text((10, 3), sub_title, fill=self.dyn_color.dyn_white, font=font)
@@ -1032,15 +1032,15 @@ class DynMajorLive:
         else:
             badge_text = " 直播 "
         bg_color = self.dyn_color.dyn_pink
-        badge_size = font.getsize(badge_text)
-        badge_pic_size = (badge_size[0] + 20, badge_size[1] + 20)
+        badge_size = font.getbbox(badge_text)
+        badge_pic_size = (badge_size[2] + 20, badge_size[3] + 20)
         badge_pic = Image.new("RGBA", badge_pic_size, bg_color)
         draw = ImageDraw.Draw(badge_pic)
         draw.text((10, 10), badge_text, self.dyn_color.dyn_white, font=font)
         self.background_img.paste(badge_pic, (905, 50), badge_pic)
         if watch_show:
-            watch_show_size = font.getsize(watch_show)
-            watch_show_pic_size = (watch_show_size[0] + 20, badge_size[1] + 20)
+            watch_show_size = font.getbbox(watch_show)
+            watch_show_pic_size = (watch_show_size[2] + 20, badge_size[3] + 20)
             watch_show_pic = Image.new("RGBA", watch_show_pic_size, (0, 0, 0, 90))
             draw = ImageDraw.Draw(watch_show_pic)
             draw.text((10, 10), watch_show, fill=self.dyn_color.dyn_white, font=font)
@@ -1150,8 +1150,8 @@ class DynMajorUgcSeason:
         play_icon = Image.open(path.join(self.src_path, "tv.png")).convert("RGBA").resize((130, 130))
         font = ImageFont.truetype(self.dyn_font_path.text, self.dyn_size.sub_title)
 
-        duration_size = font.getsize(duration)
-        duration_pic_size = (duration_size[0] + 20, duration_size[1] + 20)
+        duration_size = font.getbbox(duration)
+        duration_pic_size = (duration_size[2] + 20, duration_size[3] + 20)
         duration_pic = Image.new("RGBA", duration_pic_size, (0, 0, 0, 90))
         draw = ImageDraw.Draw(duration_pic)
         draw.text((10, 5), duration, fill=self.dyn_color.dyn_white, font=font)
